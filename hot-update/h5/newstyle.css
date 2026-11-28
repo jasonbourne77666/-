@@ -1,0 +1,3202 @@
+:root {
+	--navheight: 40px;
+	font-size: 12px;
+}
+
+html {
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+	font-size: 12px;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	height: 100vh;
+	justify-content: center;
+	background: #F8FAFC;
+	caret-color: #ff0000;
+}
+
+div {
+	align-items: center;
+}
+
+p {
+	line-height: 20px;
+}
+
+button::after {
+	outline: none;
+}
+
+/*--------------------------------------------------------------------*/
+
+/* 导航栏 */
+.wrapper {
+	font-size: 14px;
+	height: 36px;
+	line-height: 36px;
+	line-height: var(--navheight);
+	width: var(--navwidth);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25);
+	overflow: hidden;
+}
+
+.wrapper nav {
+	display: flex;
+	position: relative;
+	height: 36px;
+	line-height: 36px;
+}
+
+.wrapper nav label {
+	position: relative;
+	flex: 1;
+	text-align: center;
+	z-index: 2;
+	color: #64748B;
+	touch-action: manipulation;
+	-ms-touch-action: manipulation;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.wrapper nav label i {
+	margin: 0 5px;
+}
+
+.wrapper nav label a {
+	color: #0F172A;
+	pointer-events: none;
+	text-decoration: none;
+	/* transition: 0.2s; */
+}
+
+.wrapper img {
+	width: 20px;
+	vertical-align: middle;
+	margin-top: -4px;
+}
+
+#home:checked~label.home a,
+#shezhi:checked~label.shezhi a,
+#zhandou:checked~label.zhandou a,
+#richang:checked~label.richang a,
+#xuelan:checked~label.xuelan a,
+#zuduirenwu:checked~label.zuduirenwu a,
+#qita:checked~label.qita a,
+#kami:checked~label.kami a {
+	filter: brightness(0) invert(1);
+}
+
+.wrapper nav .tab {
+	position: absolute;
+	height: 30px;
+	width: 12.5%;
+	top: 3px;
+	left: 0;
+	background: #2563EB;
+	border-radius: 15px;
+	/* transition: 0.1s cubic-bezier(0.68, -0.55, 0.265, 1.55); */
+}
+
+#shezhi:checked~.tab {
+	left: 12.5%;
+}
+
+#zhandou:checked~.tab {
+	left: 25%;
+}
+
+#xuelan:checked~.tab {
+	left: 37.5%;
+}
+
+#richang:checked~.tab {
+	left: 50%;
+}
+
+#zuduirenwu:checked~.tab {
+	left: 62.5%;
+}
+
+#kami:checked~.tab {
+	left: 87.5%;
+}
+
+.wrapper nav input {
+	display: none;
+}
+
+/*--------------------------------------------------------------------*/
+
+/*--------------------------------------------------------------------*/
+
+/* 首页 */
+.homediv {
+	display: block;
+	width: 98%;
+	height: calc(100vh - 78px);
+	margin: 0 auto;
+	padding-top: 8px;
+}
+.首页内容布局 {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	height: 100%;
+	min-height: 0;
+}
+.首页内容布局 > .首页快捷工具栏 {
+	flex-shrink: 0;
+	margin-bottom: 4px;
+}
+.首页流程行 {
+	display: flex;
+	align-items: center;
+	flex-shrink: 0;
+	height: 28px;
+	margin-top: 2px;
+}
+.首页流程行 > #流程1,
+.首页流程行 > #流程2 {
+	flex: 0 0 75%;
+	min-width: 0;
+	height: 100% !important;
+	margin-top: 0 !important;
+}
+.首页流程行 > div > div {
+	min-width: 0;
+	height: 22px;
+}
+.首页流程行 .delet {
+	flex: 0 0 48px;
+	width: 48px;
+	height: 22px;
+	align-self: center;
+	justify-content: center;
+	padding: 0;
+	border-left: 1px solid rgba(66, 107, 145, 0.3);
+	border-radius: 0;
+	background-color: #2563EB;
+	color: #0F172A;
+	font-size: 12px;
+	line-height: 22px;
+	text-align: center;
+	transition: background-color 0.12s, color 0.12s;
+	-webkit-tap-highlight-color: transparent;
+}
+.首页流程行 .delet:active,
+.首页流程行 .delet.删除按钮反馈 {
+	transform: none;
+	background-color: #2563EB;
+	color: #0F172A;
+	transition: none;
+}
+.首页执行提示 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 1;
+	min-width: 0;
+	color: #2563EB;
+	font-size: 13px;
+	font-weight: 600;
+	white-space: nowrap;
+}
+.首页执行提示::before {
+	content: "←";
+	margin-right: 6px;
+}
+#首页块 #流程信息1,
+#首页块 #流程信息2 {
+	line-height: 22px !important;
+	min-width: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.首页任务列表 {
+	align-items: stretch;
+	display: flex;
+	flex-direction: column;
+	margin-top: 4px;
+	flex: 1 1 auto;
+	min-height: 0;
+}
+.首页任务分组 {
+	display: none;
+	align-items: stretch;
+	flex: 0 0 auto;
+	min-width: 0;
+	margin-bottom: 10px;
+	padding: 3px 4px;
+	border-radius: 7px;
+	background: transparent;
+	position: relative;
+}
+@media (max-height: 380px) {
+	.首页任务分组 { margin-bottom: 8px; }
+	.首页任务分组 { padding: 1px 4px; }
+}
+@media (max-height: 350px) {
+	.首页任务分组 { margin-bottom: 7px; }
+	.首页任务分组 { padding: 0 4px; }
+}
+.首页任务分组:last-of-type {
+	margin-bottom: 0;
+}
+.首页分类名 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 42px;
+	margin: 0 6px 0 0;
+	border-left: 3px solid transparent;
+	border-radius: 5px;
+	background: transparent;
+	color: #0F172A;
+	font-size: 13px;
+	font-weight: 700;
+}
+.首页任务分组:not(:last-of-type)::after {
+	content: "";
+	position: absolute;
+	left: 4px;
+	right: 4px;
+	bottom: -6.5px;
+	height: 3px;
+	border-radius: 1px;
+	background: #CBD5E1;
+	pointer-events: none;
+}
+@media (max-height: 380px) {
+	.首页任务分组:not(:last-of-type)::after { bottom: -5.5px; }
+}
+@media (max-height: 350px) {
+	.首页任务分组:not(:last-of-type)::after { bottom: -5px; }
+}
+/* 旧 WebView 不支持 Grid 时，仍按七列排列；用外边距兼容旧版 Flex 间距。 */
+.首页分类按钮 {
+	align-items: stretch;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: flex-start;
+	margin: -2px;
+	flex: 1;
+	min-width: 0;
+}
+.首页分类按钮 > .beixuan_button {
+	width: calc(14.285714% - 4px);
+	flex: 0 0 auto;
+	min-width: 0;
+	height: 28px;
+	margin: 2px;
+	padding: 0 3px;
+	border: 1px solid #CBD5E1;
+	border-radius: 5px;
+	background: rgba(255, 255, 255, 0.82);
+	color: #0F172A;
+	font-size: 13px;
+	white-space: nowrap;
+	touch-action: manipulation;
+	outline: none;
+	box-shadow: none;
+	-webkit-tap-highlight-color: transparent;
+}
+@supports (display: grid) {
+	.首页分类按钮 {
+		display: grid;
+		grid-template-columns: repeat(7, minmax(0, 1fr));
+		grid-auto-rows: 28px;
+		grid-gap: 4px;
+		margin: 0;
+	}
+	.首页分类按钮 > .beixuan_button {
+		width: 100%;
+		margin: 0;
+	}
+}
+.首页分类按钮 > .beixuan_button:active,
+.首页分类按钮 > .beixuan_button.任务按钮反馈 {
+	background: #DBEAFE;
+	transform: none;
+	transition: none;
+}
+.首页任务列表 > #提示 {
+	grid-column: 1 / -1;
+	margin-top: 16px !important;
+	font-size: 14px !important;
+	text-align: center;
+}
+@media (max-width: 620px) {
+	.首页分类按钮 > .beixuan_button { font-size: 12px; }
+}
+
+/*--------------------------------------------------------------------*/
+
+/* 删除按钮 */
+.delet {
+	display: none;
+	background-color: transparent;
+	vertical-align: middle;
+	padding-top: 0px;
+	margin-left: 5px;
+	outline: none;
+	border: none;
+}
+
+.delet:active {
+	transform: scale(0.7);
+	transition: 0.1s;
+}
+
+/* 被选按钮 */
+.beixuan_button,
+.beixuan_button1 {
+	width: 100px;
+	margin-top: 5px;
+}
+
+.beixuan_button:active,
+.beixuan_button1:active {
+	transform: scale(0.9);
+	transition: 0.1s;
+}
+
+/*--------------------------------------------------------------------*/
+
+/*通用设置box*/
+.tongyongshezhi_box {
+	display: none;
+	position: absolute;
+	/* background-color: #18bd7e; */
+	left: 105px;
+	width: 79%;
+	height: 78vh;
+	padding-top: 5px;
+	overflow: hidden;
+
+}
+
+/*--------------------------------------------------------------------*/
+
+/* 底部栏 */
+.footerbox {
+	display: flex;
+	position: fixed;
+	width: 100%;
+	bottom: 5px;
+	justify-content: center;
+	/* background-color: #0F172A; */
+	/* 透明空白让触摸落到下方内容，保留实际按钮的点击区域。 */
+	pointer-events: none;
+}
+
+.footerbox > button,
+.footerbox > #倒计时 {
+	pointer-events: auto;
+}
+
+.footerbox { align-items: center; }
+.footerbox > .底栏间隔 { width: 14px; }
+.footerbox > #倒计时 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 46px;
+	height: 28px;
+	border: 1px solid #CBD5E1;
+	border-radius: 6px;
+	background: #FFFFFF;
+	color: #64748B;
+	font-family: Arial, "Microsoft YaHei", sans-serif;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+}
+#倒计时文本 {
+	display: block;
+	width: 100%;
+	height: 26px;
+	font-size: 20px;
+	line-height: 26px;
+	font-weight: 700;
+	text-align: center;
+	font-variant-numeric: tabular-nums;
+}
+
+.footerbox button {
+	width: 20%;
+	height: 30px;
+	background: #2563EB;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	font-size: 18px;
+	color: #fff;
+}
+
+.footerbox > .角色统计按钮 {
+	position: absolute;
+	right: 8px;
+	bottom: 4px;
+	width: 82px;
+	height: 27px;
+	background: #2563EB;
+	font-size: 14px;
+	font-weight: 600;
+	letter-spacing: 1px;
+}
+
+.footerbox button:active {
+	transform: scale(0.9);
+	transition: 0.1s;
+}
+
+.footerbox p {
+	position: absolute;
+	left: 5px;
+	width: 185px;
+	font-size: 12px;
+	color: #64748B;
+	margin-top: 20px;
+	padding-left: 0px;
+}
+
+/*--------------------------------------------------------------------*/
+
+/* 开关 */
+.switch {
+	position: relative;
+	display: flex;
+	width: fit-content;
+	height: 20px;
+	align-items: center;
+	cursor: pointer;
+	user-select: none;
+}
+
+.switch .switch-label {
+	position: relative;
+	width: 32px;
+	height: 16px;
+	margin: 2px 2px 2px 0;
+	/* ?????? */
+	background-color: #CBD5E1;
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	transition: none;
+}
+
+.switch .switch-label::after {
+	content: "";
+	position: absolute;
+	width: 12px;
+	/* ?????? */
+	height: 12px;
+	/* ?????? */
+	left: 2px;
+	/* ????? */
+	top: 50%;
+	/* ???? */
+	transform: translateY(-50%);
+	/* ???? */
+	background-color: #94A3B8;
+	border-radius: 50%;
+	/* transition: all 0.3s ease; */
+}
+
+.switch [type="checkbox"] {
+	display: none;
+}
+
+.switch [type="checkbox"]:checked+.switch-label {
+	background-color: #2563EB;
+}
+
+.switch [type="checkbox"]:checked+.switch-label::after {
+	left: calc(100% - 14px);
+	/* ?????? */
+	background-color: #fff;
+}
+
+.switch span {
+	color: #0F172A;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	/* line-height: 20px; */
+}
+
+/*--------------------------------------------------------------------*/
+
+
+/* 滑动条 */
+.range {
+	height: 80px;
+	width: 100%;
+	margin-left: 30px;
+}
+
+.range .sliderValue {
+	position: relative;
+	display: block;
+	width: 375px;
+	height: 100px;
+	text-align: left;
+}
+
+.range .sliderValue span {
+	position: absolute;
+	height: 45px;
+	width: 45px;
+	/* background: #0F172A; */
+	text-align: center;
+	color: #fff;
+	font-weight: 500;
+	font-size: 20px;
+	top: -40px;
+	transform: translateX(-50%) scale(1);
+	line-height: 55px;
+	z-index: 2;
+}
+
+.range .sliderValue span::after {
+	position: absolute;
+	content: "";
+	height: 45px;
+	width: 45px;
+	background: #2563EB;
+	left: 50%;
+	transform: translateX(-50%) rotate(45deg);
+	border: 3px solid #fff;
+	z-index: -1;
+	border-top-left-radius: 50%;
+	border-top-right-radius: 50%;
+	border-bottom-left-radius: 50%;
+}
+
+.field {
+	position: absolute;
+	top: 0px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	height: 100%;
+	margin-left: 29px;
+	margin-right: auto;
+}
+
+.value {
+	position: absolute;
+	font-size: 14px;
+	font-weight: 600;
+	color: #2563EB;
+}
+
+.field .value.left {
+	left: -18px;
+}
+
+.field .value.right {
+	/* top: 25px; */
+	right: -40px;
+}
+
+.field input {
+	appearance: none;
+	height: 3px;
+	width: 380px;
+	background: #E2E8F0;
+	border-radius: 5px;
+	outline: none;
+	border: none;
+}
+
+.field input::-webkit-slider-thumb {
+	appearance: none;
+	height: 20px;
+	width: 20px;
+	background: #2563EB;
+	border-radius: 50%;
+	border: 1px solid #2563EB;
+	cursor: pointer;
+}
+
+#sliderValue1 {
+	position: absolute;
+	height: 30px;
+	width: 30px;
+	text-align: center;
+	color: #fff;
+	z-index: 4;
+	/* background-color: #2563EB; */
+	line-height: 25px;
+	font-size: 14px;
+	top: 2px;
+	left: -8px;
+	border-radius: 10%;
+}
+
+#sliderValue1::after {
+	position: absolute;
+	content: "";
+	height: 20px;
+	width: 20px;
+	background: #2563EB;
+	left: 50%;
+	transform: translateX(-50%) rotate(45deg);
+	border: 2px solid #fff;
+	z-index: -1;
+	/* border-top-left-radius: 50%; */
+	/* border-top-right-radius: 50%; */
+	/* border-bottom-left-radius: 50%; */
+	margin-top: 0px;
+}
+
+#slider1::-webkit-slider-thumb {
+	appearance: none;
+	height: 15px;
+	width: 15px;
+	background-color: #2563EB;
+	cursor: pointer;
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+
+/*--------------------------------------------------------------------*/
+
+/* 单选框 */
+.custom-radio {
+	display: inline-flex;
+	align-items: center;
+	cursor: pointer;
+	margin-right: 10px;
+}
+
+.custom-radio input[type="radio"] {
+	display: none;
+}
+
+.custom-radio .radio-circle {
+	width: 16px;
+	height: 16px;
+	border: 2px solid #2563EB;
+	border-radius: 50%;
+	margin-right: 2px;
+	position: relative;
+	transition: none;
+}
+
+.custom-radio .radio-circle::after {
+	content: '';
+	width: 8px;
+	height: 8px;
+	background: #2563EB;
+	border-radius: 50%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0);
+	transition: none;
+}
+
+.custom-radio input[type="radio"]:checked+.radio-circle::after {
+	transform: translate(-50%, -50%) scale(1);
+}
+
+.custom-radio a {
+	line-height: 20px;
+}
+
+.辅助权限选项 {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px 24px;
+	margin-left: 20px;
+}
+
+.辅助权限说明区 {
+	margin: 14px 12px 0 20px;
+}
+
+.辅助权限提醒 {
+	color: #c84a01;
+	font-size: 12px;
+	font-weight: 400;
+	line-height: 1.75;
+	margin: 0 0 8px;
+}
+
+/*--------------------------------------------------------------------*/
+
+/* 滑动页面 */
+.slider-container {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+.slider-wrapper,
+.slider-wrapper1,
+.slider-wrapper2 {
+	display: flex;
+	transition: none;
+}
+
+.slider-page {
+	min-width: 100%;
+	height: 100%;
+	padding: 0px;
+}
+
+.首页快捷工具栏 {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 30px;
+	margin-top: -5px;
+	margin-bottom: 7px;
+	gap: 6px;
+}
+
+.首页快捷按钮组 {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	flex: 0 0 auto;
+}
+
+.首页快捷按钮组 > button {
+	height: 27px;
+	padding: 0 6px;
+	box-sizing: border-box;
+	border: 1px solid #CBD5E1;
+	border-radius: 5px;
+	background: rgba(255, 255, 255, 0.82);
+	color: #0F172A;
+	font-size: 12px;
+	white-space: nowrap;
+}
+
+
+
+
+
+.首页快捷按钮组 > .首页售后按钮 {
+	width: 58px;
+	border-color: #2563EB;
+	background: #EFF6FF;
+	color: #2563EB;
+	font-weight: 600;
+}
+
+.首页快捷按钮组 > .首页上传日志按钮 {
+	width: 72px;
+	border-color: #2563EB;
+	background: #2563EB;
+	color: #fff;
+}
+
+.首页快捷按钮组 > button:active {
+	transform: scale(0.97);
+}
+
+.首页喵码入口 {
+	display: flex;
+	align-items: center;
+	flex: 0 0 58px;
+	z-index: 2;
+}
+
+.首页喵提醒按钮 {
+	width: 58px;
+	height: 27px;
+	padding: 0;
+	box-sizing: border-box;
+	border: 1px solid #e2a15d;
+	border-radius: 5px;
+	background: #fff4e8;
+	color: #a45710;
+	font-size: 12px;
+	font-weight: 600;
+	white-space: nowrap;
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+
+
+/* 首页测试区：标签式选择，沿用开关的保存事件。 */
+.首页测试区入口.switch {
+	flex: 0 0 64px;
+	width: 64px;
+	height: 27px;
+}
+.首页测试区入口 input[type="checkbox"] {
+	display: block;
+	position: absolute;
+	opacity: 0;
+	width: 1px;
+	height: 1px;
+}
+.测试区标签 {
+	-webkit-tap-highlight-color: transparent;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 27px;
+	border: 1px solid #64748B;
+	border-radius: 7px;
+	background: rgba(255, 255, 255, 0.45);
+	color: #0F172A;
+	font-size: 12px;
+	font-weight: 600;
+	white-space: nowrap;
+	cursor: pointer;
+}
+.首页测试区入口 .测试区标记 {
+	width: 12px;
+	height: 12px;
+	margin-right: 5px;
+	border: 1px solid #64748B;
+	border-radius: 3px;
+	position: relative;
+}
+.首页测试区入口 input:checked + .测试区标签 {
+	background: #2563EB;
+	border-color: #2563EB;
+	color: #fff;
+}
+.首页测试区入口 input:checked + .测试区标签 .测试区标记 {
+	border-color: rgba(255, 255, 255, 0.65);
+}
+.首页测试区入口 input:checked + .测试区标签 .测试区标记::after {
+	content: "";
+	position: absolute;
+	left: 3px;
+	top: 1px;
+	width: 3px;
+	height: 6px;
+	border: solid #fff;
+	border-width: 0 2px 2px 0;
+	transform: rotate(45deg);
+}
+.师门-tabs-layout {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	width: 100%;
+	height: 100%;
+	min-height: 0;
+}
+
+.师门-page-nav,
+.场景-page-nav {
+	display: flex;
+	flex: 0 0 26px;
+	flex-direction: row;
+	align-items: center;
+	align-self: stretch;
+	justify-content: center;
+	width: 100%;
+	height: 26px;
+	gap: 6px;
+	box-sizing: border-box;
+	padding: 1px 0;
+}
+
+.师门-page-button,
+.场景-page-button {
+	min-width: 72px;
+	height: 24px;
+	padding: 0 10px;
+	border: 1px solid #CBD5E1;
+	border-radius: 5px;
+	background: #FFFFFF;
+	color: #0F172A;
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 22px;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+.师门-page-button.active,
+.场景-page-button.active {
+	border-color: #2563EB;
+	background: #2563EB;
+	color: #fff;
+	box-shadow: 0 2px 5px rgba(43, 92, 169, 0.28);
+}
+
+.师门-page-content {
+	flex: 1;
+	align-self: stretch;
+	width: 100%;
+	min-width: 0;
+	min-height: 0;
+	overflow: hidden;
+}
+
+#师门box .slider-wrapper1 {
+	width: 100%;
+}
+
+#师门box .slider-page {
+	box-sizing: border-box;
+}
+
+.场景-tabs-layout,
+.场景-page-content,
+#场景box .slider-wrapper2 {
+	width: 100%;
+	min-width: 0;
+}
+
+.场景-page-content {
+	overflow: hidden;
+}
+
+#场景box .slider-page {
+	box-sizing: border-box;
+}
+
+.基础设置-tabs-layout {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	width: 100%;
+	height: 100%;
+	min-height: 0;
+}
+
+.基础设置-page-content {
+	flex: 1;
+	align-self: stretch;
+	width: 100%;
+	min-width: 0;
+	min-height: 0;
+	overflow: hidden;
+}
+
+#基础设置box .slider-wrapper {
+	width: 100%;
+}
+
+#基础设置box .slider-page {
+	box-sizing: border-box;
+}
+
+.基础设置第二页首行 {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.基础设置-运行速度行 {
+	display: flex;
+	flex: 1 1 auto;
+	align-items: center;
+	gap: 4px;
+	min-width: 0;
+	height: 24px;
+	margin: 0;
+	white-space: nowrap;
+}
+
+.基础设置-运行速度行 > p,
+.基础设置-运行速度行 > span {
+	flex: 0 0 auto;
+	line-height: 24px;
+}
+
+#运行速度盒子 #slider1 {
+	position: static;
+	flex: 1 1 auto;
+	min-width: 100px;
+	max-width: 220px;
+	height: 3px;
+}
+
+#运行速度盒子 #sliderValue1 {
+	position: static;
+	flex: 0 0 24px;
+	width: 24px;
+	height: 22px;
+	line-height: 22px;
+	text-align: center;
+	color: #fff;
+	background: #2563EB;
+	border-radius: 4px;
+}
+
+#运行速度盒子 #sliderValue1::after {
+	display: none;
+}
+
+/* ??????? */
+.page-indicator {
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+.indicator,
+.indicator1,
+.indicator2 {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: #E2E8F0;
+	margin: 0 5px;
+	cursor: pointer;
+}
+
+.indicator.active,
+.indicator1.active,
+.indicator2.active {
+	background: #2563EB;
+}
+
+/*--------------------------------------------------------------------*/
+
+
+/* 喵码 */
+#cat:active {
+	transform: scale(0.97);
+}
+
+/* ?????? */
+.catui {
+	position: absolute;
+	top: -50%;
+	/* ???????? */
+	left: 2%;
+	width: 96%;
+	height: 50%;
+	/* ???????? */
+	background-color: white;
+	box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+	transition: top 0.2s ease-in-out;
+	/* ?????? */
+	border-radius: 0 0 5px 5px;
+	display: none;
+	flex-direction: column;
+	z-index: 999;
+	overflow: hidden;
+}
+
+/* ????? */
+#cat_overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	/* ??????? */
+	/* ?????? */
+	display: none;
+	/* ???? */
+	z-index: 998;
+}
+
+/* ?????? */
+.panel-content {
+	/* align-items: center; */
+	/* justify-content: center; */
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+/*--------------------------------------------------------------------*/
+
+/* 输入框 */
+.input {
+	height: 20px;
+	border: 1px solid #2563EB;
+	border-radius: 2px;
+	outline: none;
+	background-color: transparent;
+	text-align: center;
+	margin-left: 2px;
+	margin-right: 2px;
+	/* background-color: #169e21; */
+
+}
+
+.input:focus {
+	border: 2px solid #2563EB;
+}
+
+/*--------------------------------------------------------------------*/
+
+/* 旗子设置页面 */
+.qizi_setting {
+	position: fixed;
+	top: 100%; 
+	left: 0%;
+	width: 100%;
+	height: 100%; 
+	background: #F8FAFC;
+	box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+	transition: top 0.2s ease-in-out; 
+	border-radius: 0 0 5px 5px;
+	flex-direction: column;
+	z-index: 555;
+	padding: 0 5px;
+}
+
+/*--------------------------------------------------------------------*/
+
+/* 将军令token */
+.tokenui {
+	position: fixed;
+	top: -50%;
+	/* ???????? */
+	left: 0;
+	width: 100%;
+	height: 50%;
+	/* ???????? */
+	background-color: white;
+	box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+	transition: top 0.2s ease-in-out;
+	/* ?????? */
+	border-radius: 0 0 5px 5px;
+	/* display: flex; */
+	flex-direction: column;
+	z-index: 999;
+	overflow: hidden;
+}
+
+#overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	/* ??????? */
+	/* ?????? */
+	display: none;
+	/* ???? */
+	z-index: 998;
+}
+
+.panel-content {
+	padding: 10px;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	/* ????????? */
+}
+
+.inputBox {
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	font-size: 13px;
+	/* border: 1px solid #E2E8F0; */
+	border: 1px solid #2563EB;
+	outline: none;
+	background-color: transparent;
+	border-radius: 5px;
+	resize: none;
+	/* ???????? */
+	flex: 1;
+	/* ?????? */
+}
+
+.inputBox:focus {
+	border: 2px solid #2563EB;
+	/* border-right: 1px solid #2563EB; */
+}
+
+/*--------------------------------------------------------------------*/
+
+/*滑动指示*/
+.swipe-hint {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	width: 100px;
+	height: 100px;
+	pointer-events: none;
+	opacity: 0;
+	z-index: 100;
+	animation: swipeAnim 1s cubic-bezier(0.4, 0, 0.2, 1) 1;
+	/* ??????????? */
+	background: url('./picture/swipe.png') no-repeat center center;
+	background-size: contain;
+}
+
+@keyframes swipeAnim {
+	0% {
+		transform: translateX(60px) translateY(-50%);
+		opacity: 0;
+	}
+
+	15% {
+		/* ????? */
+		transform: translateX(40px) translateY(-50%);
+		opacity: 1;
+	}
+
+	85% {
+		/* ????? */
+		transform: translateX(-40px) translateY(-50%);
+		opacity: 1;
+	}
+
+	100% {
+		transform: translateX(-60px) translateY(-50%);
+		opacity: 0;
+	}
+}
+
+/*--------------------------------------------------------------------*/
+
+#战斗方法box { position: relative; padding-bottom: 0; }
+#跟队自动战斗提醒 { position: absolute; top: 58px; left: 24px; right: 24px; z-index: 100; box-sizing: border-box; padding: 14px 18px; border: 2px solid #d18b26; border-radius: 10px; background: #fff3d7; color: #a8440b; font-size: 24px; font-weight: 700; line-height: 1.5; text-align: center; }
+#跟队自动战斗提醒[hidden] { display: none; }
+#战斗方法box.跟队自动禁用 .gendui_content-box:not(#战斗方法_content说明) { opacity: .35; pointer-events: none; }
+@media (max-width: 680px) {
+    #跟队自动战斗提醒 { left: 16px; right: 16px; padding: 12px; font-size: 22px; }
+}
+
+/* 战斗套号加大点击范围，九黎标题移到侧边后让出纵向空间。 */
+.gendui_pagination {
+	display: flex;
+	width: 100%;
+	max-width: 568px;
+	margin-left: auto;
+	margin-right: auto;
+	justify-content: center;
+	align-items: center;
+	gap: 4px;
+	flex-wrap: nowrap;
+	margin-top: -10px;
+}
+
+
+.gendui_pagination button {
+	background-color: rgba(247, 250, 255, 0.6);
+	border: 1px solid #CBD5E1;
+	outline: none;
+	color: #0F172A;
+	padding: 6px 4px;
+	flex: 1 1 0;
+	min-width: 0;
+	height: 34px;
+	line-height: 20px;
+	white-space: nowrap;
+	margin: 2px 0;
+	cursor: pointer;
+	border-radius: 6px;
+	font-size: 15px;
+	position: relative;
+	transition: none;
+}
+
+.gendui_pagination button.active {
+	background: #2563EB;
+	border-color: #2563EB;
+	color: #fff;
+	font-weight: 600;
+	box-shadow: 0 1px 3px rgba(29, 87, 151, 0.2);
+}
+
+.gendui_content-box {
+	display: none;
+}
+
+
+.gendui_content-box.active {
+	display: block;
+}
+
+#除暴box > .chubao_content-box {
+	width: 100%;
+}
+
+.战斗方案选择组 {
+	flex: 1 1 0;
+	min-width: 0;
+	max-width: 580px;
+	gap: 5px !important;
+	flex-wrap: nowrap;
+}
+
+.战斗方案选择组 .custom-radio {
+	flex: 1 1 0;
+	min-width: 0;
+	margin-right: 0;
+	white-space: nowrap;
+}
+
+.战斗方案选择组 .radio-circle {
+	display: none;
+}
+
+.战斗方案选择组 .custom-radio a {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 4px 0;
+	border: 1px solid #CBD5E1;
+	border-radius: 5px;
+	background: #FFFFFF;
+	color: #64748B;
+	font-family: Arial, "Microsoft YaHei", sans-serif;
+	font-size: 13px;
+	line-height: 20px;
+	text-align: center;
+}
+
+.战斗方案选择组 input[type="radio"]:checked ~ a {
+	border-color: #2563EB;
+	background: #2563EB;
+	color: #fff;
+	font-weight: bold;
+}
+
+.战斗方案选择行 {
+	align-items: center;
+	padding-right: 8px;
+}
+
+.战斗方案选择行 > p {
+	flex: 0 0 auto;
+	margin-right: 6px;
+	white-space: nowrap;
+}
+
+/* 三张战斗卡片共用浅色底；九黎四行用 Flex 对齐，兼容旧 WebView。 */
+.战斗方法-区域 {
+	position: relative;
+	background: rgba(247, 250, 255, 0.82);
+	border: 1px solid #CBD5E1;
+	border-radius: 8px;
+	padding: 4px 2px;
+}
+.战斗方法-九黎城区 {
+	width: 514px;
+	padding-left: 26px;
+	max-width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+.战斗方法-区域 > .战斗方法-卡片标题 {
+	position: absolute;
+	left: 4px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 20px;
+	padding: 4px 2px;
+	border-radius: 4px;
+	background: #2563EB;
+}
+.战斗方法-区域 > .战斗方法-卡片标题 p {
+	width: 1em;
+	line-height: 16px;
+	white-space: normal;
+}
+.战斗方法-卡片标题 {
+	display: -webkit-flex;
+	display: flex;
+	justify-content: center;
+	color: #fff;
+	font-weight: 700;
+}
+.战斗方法-九黎城行,
+.战斗方法-其他门派行,
+.战斗方法-宠物行 {
+	display: -webkit-flex;
+	display: flex;
+	align-items: center;
+	margin-top: 4px;
+}
+.战斗方法-九黎城行 {
+	width: 458px;
+	max-width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+.战斗方法-九黎城行 > * {
+	-webkit-flex-shrink: 0;
+	flex-shrink: 0;
+	margin-right: 4px;
+}
+.战斗方法-九黎城行 > p:first-child { width: 42px; }
+.战斗方法-九黎城行 > p:nth-child(2) { width: 54px; }
+.战斗方法-九黎城行 > p:nth-last-child(2) { width: 36px; }
+.战斗方法-九黎城二次行 > .select-box:nth-child(4) { margin-right: 70px; }
+.战斗方法-九黎城行 > .select-box:last-child {
+	width: 116px !important;
+	margin-right: 0;
+}
+.战斗方法-九黎城行 > .select-box:last-child .select span { padding-right: 18px; }
+
+/* 非九黎人物使用固定宽度 Flex，兼容不支持 Grid 的旧 WebView。 */
+.战斗方法-其他门派行 {
+	display: -webkit-flex;
+	display: flex;
+	column-gap: 0;
+}
+.战斗方法-其他门派行 > * {
+	-webkit-flex-shrink: 0;
+	flex-shrink: 0;
+	margin-right: 5px;
+}
+.战斗方法-其他门派行 > p:first-child { width: 52px; }
+.战斗方法-其他门派行 > p:nth-child(3) { width: 36px; }
+.战斗方法-其他门派行 > :last-child { margin-right: 0; }
+#战斗方法box .select span[data-placeholder]:empty::before {
+	content: attr(data-placeholder);
+}
+.战斗方法-其他门派后续行 {
+	display: -webkit-flex;
+	display: flex;
+	align-items: center;
+	margin-top: 4px;
+}
+.战斗方法-其他门派后续行 > p {
+	margin-right: 10px;
+	white-space: nowrap;
+}
+.战斗方法-其他门派后续行 .select { padding-right: 18px; }
+.战斗方法-其他门派后续行 > .select-box {
+	-webkit-flex: 0 0 auto;
+	flex: 0 0 auto;
+}
+
+/* 宠物每回合的技能和目标保持同一行，窄屏优先压缩面板空隙。 */
+/* 怪物站位入口位于九黎城与人物、宠物区域之间。 */
+.战斗方法-整套开关行 {
+	display: -webkit-flex;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 24px;
+}
+.战斗方法-下方布局 {
+	clear: both;
+	width: 100%;
+	display: -webkit-flex;
+	display: flex;
+	align-items: stretch;
+	margin-top: 0;
+	padding-right: 0;
+}
+.战斗方法-其他门派区,
+.战斗方法-宠物区 {
+	padding-left: 26px;
+	padding-right: 6px;
+}
+.战斗方法-其他门派区 {
+	-webkit-flex: 1;
+	flex: 1;
+	min-width: 252px;
+	margin-right: 6px;
+}
+.战斗方法-其他门派行 > * { margin-right: 2px; }
+.战斗方法-其他门派行 > p:first-child { width: 44px; }
+.战斗方法-其他门派行 > .select-box:nth-child(2) { width: 70px !important; }
+.战斗方法-其他门派行 > p:nth-child(3) { width: 30px; }
+.战斗方法-其他门派行 > .select-box:last-child {
+	-webkit-flex: 1 0 68px;
+	flex: 1 0 68px;
+	min-width: 68px;
+	width: auto !important;
+}
+.战斗方法-宠物区 {
+	-webkit-flex: 1;
+	flex: 1;
+	min-width: 290px;
+}
+.战斗方法-宠物行 {
+	display: -webkit-flex;
+	display: flex;
+	column-gap: 0;
+}
+.战斗方法-宠物行 > * {
+	-webkit-flex-shrink: 0;
+	flex-shrink: 0;
+	margin-right: 2px;
+}
+.战斗方法-宠物行 > p:first-child { -webkit-flex: 0 0 54px; flex: 0 0 54px; }
+.战斗方法-宠物行 > p:nth-child(3) { -webkit-flex: 0 0 30px; flex: 0 0 30px; }
+.战斗方法-宠物行 > .select-box:nth-child(2) { -webkit-flex: 0 0 108px; flex: 0 0 108px; }
+.战斗方法-宠物行 > .select-box:nth-child(2) .select span { padding-right: 18px; }
+.战斗方法-宠物行 > .select-box:last-child {
+	-webkit-flex: 1 0 58px;
+	flex: 1 0 58px;
+	min-width: 58px;
+	width: auto !important;
+	margin-right: 0;
+}
+.战斗方法-其他门派行 > .select-box:last-child .select span,
+.战斗方法-宠物行 > .select-box:last-child .select span { padding-right: 18px; }
+.战斗方法-宠物行 + .战斗方法-宠物行 { margin-top: 8px; }
+
+@media (max-width: 559px) {
+	#战斗方法box { padding-bottom: 44px; }
+	.战斗方法-下方布局 { display: block; }
+	.战斗方法-其他门派区,
+	.战斗方法-宠物区 { min-width: 0; }
+	.战斗方法-其他门派区 { margin-right: 0; margin-bottom: 8px; }
+}
+
+@media (min-height: 380px) {
+	.战斗方法-整套开关行 { height: 28px; }
+	.战斗方法-九黎城行,
+	.战斗方法-其他门派行,
+	.战斗方法-其他门派后续行,
+	.战斗方法-宠物行 { margin-top: 6px; }
+	.战斗方法-宠物行 + .战斗方法-宠物行 { margin-top: 12px; }
+}
+
+@media (max-height: 379px) {
+	#战斗块 { padding-top: 0; }
+	#战斗方法box .gendui_pagination { margin-top: 0; }
+	.战斗方法-区域 { padding-top: 2px; padding-bottom: 2px; }
+	.战斗方法-整套开关行 { height: 22px; }
+	.战斗方法-卡片标题 p { line-height: 18px; }
+	.战斗方法-九黎城行,
+	.战斗方法-其他门派行,
+	.战斗方法-其他门派后续行,
+	.战斗方法-宠物行 { margin-top: 1px; }
+	.战斗方法-宠物行 + .战斗方法-宠物行 { margin-top: 3px; }
+}
+
+#战斗方法box .select { height: 24px; line-height: 24px; }
+
+@media (max-height: 319px) {
+	#战斗方法box { padding-bottom: 44px; }
+}
+
+@media (max-height: 339px) {
+	#战斗方法box .select { height: 22px; line-height: 22px; }
+	.战斗方法-卡片标题 p { line-height: 16px; }
+	.战斗方法-区域 { padding-top: 1px; padding-bottom: 1px; }
+}
+
+.战斗方法-九黎城行 > p,
+.战斗方法-其他门派行 > p,
+.战斗方法-宠物行 > p,
+.战斗方法-九黎城行 > .select-box,
+.战斗方法-其他门派行 > .select-box,
+.战斗方法-宠物行 > .select-box {
+	margin-left: 0 !important;
+}
+
+.战斗方法-九黎城行 > p,
+.战斗方法-其他门派行 > p,
+.战斗方法-宠物行 > p {
+	white-space: nowrap;
+}
+
+/*--------------------------------------------------------------------*/
+
+
+/*侧边栏*/
+.sidebar {
+	position: absolute;
+	width: 95px;
+	height: 89.5%;
+
+	overflow-y: auto;
+	/* ??????? */
+	direction: rtl;
+	/* ???????? */
+	background-color: #fff;
+	transition: none;
+	padding-left: 3px;
+
+	/* ??????? */
+	scrollbar-width: thin;
+	/* Firefox */
+	scrollbar-color: #2563EB #fff;
+	/* Firefox */
+	z-index: 2;
+}
+
+
+.sidebar ul {
+	position: relative;
+	height: 76vh;
+}
+
+.sidebar ul li,
+.sidebar1 ul li {
+	position: relative;
+	list-style: none;
+}
+
+.sidebar ul li.active {
+	background-color: #F8FAFC;
+	border-top-left-radius: 30px;
+	border-bottom-left-radius: 30px;
+}
+
+.sidebar ul li.active::before {
+	content: "";
+	position: absolute;
+	top: -20px;
+
+	right: 0;
+	width: 20px;
+	height: 20px;
+	border-bottom-right-radius: 15px;
+	box-shadow: 5px 5px 0 5px #F8FAFC;
+	background-color: transparent;
+}
+
+.sidebar ul li.active::after {
+	content: "";
+	position: absolute;
+	bottom: -20px;
+	right: 0;
+	width: 20px;
+	height: 20px;
+	border-top-right-radius: 15px;
+	box-shadow: 5px -5px 0 5px #F8FAFC;
+	background-color: transparent;
+
+}
+
+.sidebar ul li.active a .text,
+.sidebar1 ul li.active1 a .text1 {
+	color: #2563EB;
+}
+
+.sidebar ul li .text {
+
+	font-weight: 500;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-width: 60px;
+	height: 40px;
+	padding-left: 0px;
+
+}
+
+/* 单人任务新增教师节，只收紧导航高度，保留公共字号和控件大小。 */
+#日常任务块 .Menulist1 li .text {
+	height: 34px;
+}
+
+@media (max-height: 350px) {
+	#日常任务块 .Menulist1 li .text {
+		height: 30px;
+	}
+}
+
+#教师节box {
+	max-width: calc(100vw - 169px);
+	padding-top: 10px;
+	line-height: 1.8;
+}
+
+#教师节box p {
+	margin-bottom: 10px;
+}
+
+#教师节box .教师节标题 {
+	font-weight: bold;
+}
+
+#教师节box .教师节说明 {
+	color: #c84a01;
+}
+
+.sidebar ul li a {
+	position: relative;
+	display: flex;
+	white-space: nowrap;
+	text-decoration: none;
+	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+	/* ??????? */
+}
+
+.sidebar ul li a .text {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	color: #0F172A;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	transition: none;
+	left: -15px;
+
+}
+
+/*--------------------------------------------------------------------*/
+
+
+/*下拉框 xialakuang*/
+.select-box {
+	float: left;
+	width: 60px;
+	cursor: pointer;
+	position: relative;
+	font-size: 12px;
+	/* background-color: #14eb86; */
+}
+
+.select-box span {
+	/* background-color: #169e21; */
+	width: 100%;
+	text-align: center;
+	padding-right: 5px;
+}
+
+.select {
+	background: #FFFFFF;
+	border: 1px solid #CBD5E1;
+	width: 100%;
+	height: 20px;
+	line-height: 20px;
+	color: #0F172A;
+	border-radius: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.select::after {
+	content: '';
+	width: 6px;
+	height: 6px;
+	border-right: 2px solid #64748B;
+	border-bottom: 2px solid #64748B;
+	position: absolute;
+	top: 50%;
+	right: 6px;
+	transform: translateY(-70%) rotate(45deg);
+	pointer-events: none;
+}
+.select-box.active { z-index: 560; }
+.select-box.active .select { border-color: #2563EB; background: #EFF6FF; }
+.select-box.active .select::after { transform: translateY(-30%) rotate(225deg); }
+.options-list {
+	display: none;
+	position: absolute;
+	width: 100%;
+	background: #FFFFFF;
+	color: #0F172A;
+	border: 1px solid #CBD5E1;
+	border-radius: 6px;
+	margin-top: 4px;
+	padding: 3px;
+	max-height: 240px;
+	overflow-y: auto;
+	z-index: 560;
+	box-shadow: 0 4px 12px rgba(28, 54, 84, 0.22);
+}
+.option {
+	font-weight: 500;
+	text-align: center;
+	line-height: 18px;
+	padding: 3px 2px;
+	border-radius: 3px;
+}
+.option:active { background: #FFFFFF; }
+.option.selected {
+	color: #2563EB;
+	background: #EFF6FF;
+	font-weight: 600;
+	box-shadow: inset 3px 0 0 #2563EB;
+}
+.options-list::-webkit-scrollbar { width: 3px; background: transparent; }
+.options-list::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 3px; }
+.options-list.active { display: block; height: auto; }
+#战斗方法box .options-list { min-width: 104px; right: 0; }
+
+/* 天降、青龙的下拉框沿用战斗页尺寸，生肖仍按四列排列。 */
+#天降星辰box .天降生肖行 { display: flex; align-items: center; padding-right: 8px; }
+#天降星辰box .天降生肖行 > p { float: none !important; flex: 0 0 22px; margin-left: 12px !important; color: #0F172A; }
+#天降星辰box .天降生肖行 > p:first-child { margin-left: 0 !important; }
+#天降星辰box .天降生肖行 > .select-box { width: auto !important; flex: 1 1 0; min-width: 0; }
+#天降星辰box .select-box, #青龙box .select-box { font-size: 13px; }
+#天降星辰box .select, #青龙box .select { height: 24px; line-height: 24px; }
+#天降星辰box .select span, #青龙box .select span { padding-right: 16px; }
+#天降星辰box #下拉框_tjg { width: 112px !important; }
+#青龙box .select-box { width: 120px !important; flex-shrink: 0; }
+#天降星辰box .option, #青龙box .option { font-size: 13px; }
+/* 天降战斗套数浮出任务面板，允许覆盖顶部导航，一屏优先展示全部选项。 */
+#天降星辰box .天降生肖行 .options-list { position: fixed; margin-top: 0; }
+@media (max-width: 550px) {
+    #天降星辰box .天降生肖行 > p { margin-left: 8px !important; }
+    #天降星辰box .天降生肖行 > p:first-child { margin-left: 0 !important; }
+    #青龙box .select-box { width: 112px !important; }
+}
+
+/*--------------------------------------------------------------------*/
+
+/* 多选框 */
+.Checkbox {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	height: 20px;
+	line-height: 20px;
+	cursor: pointer;
+	user-select: none;
+
+}
+
+.Checkbox .checkbox {
+	width: 15px;
+	height: 15px;
+	position: relative;
+	margin-right: 2px;
+	background-color: #fff;
+	background-color: #2563EB;
+	border-radius: 3px;
+	transition: none;
+}
+
+.Checkbox .checkbox::after {
+	content: "";
+	position: absolute;
+	width: 5px;
+	height: 10px;
+	border: 2px solid #fff;
+	border-width: 0 2px 2px 0;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%) rotate(45deg) scale(0);
+	opacity: 0;
+	transition: none;
+}
+
+.Checkbox input[type="checkbox"] {
+	display: none;
+}
+
+.Checkbox input[type="checkbox"]:checked+.checkbox {
+	background-color: #2563EB;
+	border-color: #2563EB;
+}
+
+.Checkbox input[type="checkbox"]:checked+.checkbox::after {
+	opacity: 1;
+	transform: translate(-50%, -50%) rotate(45deg) scale(1);
+}
+
+.Checkbox .text {
+	font-size: 12px;
+	color: #0F172A;
+	line-height: 20px;
+}
+
+.Checkbox:hover .checkbox {
+	border-color: #2563EB;
+}
+
+/*--------------------------------------------------------------------*/
+
+/* 按钮样式 */
+.jichushez_btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+
+
+
+
+
+
+.bt {
+	font-size: small;
+	color: #fff;
+	background: #2563EB;
+	padding: 5px 30px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	position: relative;
+	overflow: hidden;
+	text-decoration: none;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	transition: transform 0.1s ease, filter 0.1s ease;
+}
+
+.bt:active {
+	transform: scale(0.9);
+	filter: brightness(0.9);
+}
+
+/* ---------------------------------------------------------------------- */
+
+
+/* 历史更新 */
+/* 历史更新按钮 */
+.version_style {
+	width: auto;
+	min-width: 108px;
+	height: 24px;
+	padding: 0 10px;
+	font-size: 11px;
+	font-weight: 600;
+	line-height: 1;
+	position: absolute;
+	left: 8px;
+	bottom: 5px;
+	background: rgba(255, 255, 255, 0.76);
+	color: #64748B;
+	border: 1px solid #CBD5E1;
+	border-radius: 12px;
+	box-shadow: 0 1px 3px rgba(59, 91, 126, 0.16);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	white-space: nowrap;
+	cursor: pointer;
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+	z-index: 2;
+}
+
+.version_style::before {
+	content: "";
+	width: 6px;
+	height: 6px;
+	flex: 0 0 6px;
+	border-radius: 50%;
+	background: #2563EB;
+}
+
+.version_style.有未读更新 {
+	background: #fff5f5;
+	border-color: #dda0a0;
+}
+
+.version_style.有未读更新::before {
+	background: #ff0000;
+	animation: 更新提示呼吸 0.8s ease-in-out infinite;
+}
+
+@keyframes 更新提示呼吸 {
+	0%, 100% { opacity: 0.6; transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+	50% { opacity: 1; transform: scale(1.6); box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.3); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.version_style.有未读更新::before {
+		animation: none;
+		box-shadow: 0 0 0 2px rgba(255, 0, 0, 0.3);
+	}
+}
+
+.version_style:active {
+	background: #FFFFFF;
+	transform: scale(0.97);
+}
+
+/* 遮罩层样式 */
+.overlay1 {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(18, 32, 52, 0.46);
+	display: none;
+	z-index: 999;
+}
+.announcement-container {
+	font-family: Arial, "Microsoft YaHei", sans-serif;
+	position: fixed;
+	top: -100%;
+	left: 50%;
+	transform: translateX(-50%);
+	display: none;
+	flex-direction: column;
+	align-items: stretch;
+	width: 88%;
+	max-width: 680px;
+	height: 84%;
+	max-height: 490px;
+	padding: 0;
+	border: 1px solid #E2E8F0;
+	border-radius: 12px;
+	background: #fff;
+	box-shadow: 0 12px 36px rgba(17, 35, 59, 0.2);
+	overflow: hidden;
+	z-index: 1000;
+}
+.announcement-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex: 0 0 54px;
+	padding: 0 18px;
+	border-bottom: 1px solid #E2E8F0;
+}
+.announcement-title {
+	font-size: 20px;
+	font-weight: 700;
+	color: #0F172A;
+	letter-spacing: 1px;
+}
+.announcement-container .close-button {
+	width: 28px;
+	height: 28px;
+	border: 0;
+	border-radius: 8px;
+	background: #FFFFFF;
+	color: #64748B;
+	font-size: 23px;
+	line-height: 26px;
+	cursor: pointer;
+}
+.announcement-container .close-button:active { background: #E2E8F0; }
+.history-updates {
+	flex: 1 1 auto;
+	min-height: 0;
+	padding: 8px 18px 16px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	-webkit-overflow-scrolling: touch;
+}
+.history-updates ul { list-style: none; margin: 0; padding: 0; }
+.history-entry {
+	display: flex;
+	align-items: center;
+	padding: 17px 0;
+	border-bottom: 1px solid #FFFFFF;
+}
+.history-entry:last-child { border-bottom: 0; }
+.history-date {
+	flex: 0 0 auto;
+	padding-right: 16px;
+	font-size: 13px;
+	line-height: 22px;
+	font-weight: 700;
+	color: #64748B;
+	white-space: nowrap;
+}
+.history-content { flex: 1 1 auto; min-width: 0; }
+.history-content p {
+	margin: 0 0 8px;
+	font-size: 14px;
+	line-height: 1.65;
+	color: #0F172A;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+}
+.history-content p:last-child { margin-bottom: 0; }
+.history-empty { padding: 30px 0; color: #64748B; text-align: center; font-size: 14px; }
+.history-updates::-webkit-scrollbar { width: 4px; }
+.history-updates::-webkit-scrollbar-thumb { background: #E2E8F0; border-radius: 4px; }
+@media (max-height: 400px) {
+	.announcement-container { height: 88%; }
+	.announcement-header { flex-basis: 46px; }
+	.history-entry { padding: 12px 0; }
+}
+
+/* ---------------------------------------------------------------------- */
+
+
+/* 过渡动画 */
+.loading {
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	z-index: 1000;
+	justify-content: center;
+	align-items: center;
+}
+
+.loading .box {
+	display: flex;
+	width: 100px;
+	height: 100px;
+	background-color: #000000c2;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+	flex-direction: column;
+}
+
+.loading .spinner {
+	width: 40px;
+	height: 40px;
+	border: 4px solid #919090d3;
+	border-top: 4px solid #ffffff;
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+	margin-bottom: 10px;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+
+/* 道具页沿用公共输入框高度；右侧留出导航键挤压余量。 */
+/* 道具与飞行设置：独立页面，沿用原配置控件与深色文字。 */
+#通用设置块 .Menulist li .text { height: 34px; }
+#道具类box, #旗子设置界面id { width: calc(100% - 118px); max-width: none; height: auto; max-height: none; box-sizing: border-box; overflow: visible; color: #0F172A; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; font-size: 12px; }
+.道具飞行页 .道具卡片 { margin-top: 6px; padding: 4px 8px; border: 1px solid #CBD5E1; border-radius: 9px; background: #FFFFFF; box-shadow: 0 2px 5px rgba(46,75,104,.06); }
+.道具飞行页 > .道具卡片:first-child { margin-top: 0; }
+.道具飞行页 .道具卡标题 { display: block; margin-bottom: 4px; line-height: 18px; font-size: 13px; font-weight: 600; }
+.道具飞行页 .道具横排 { display: flex; align-items: center; justify-content: space-between; min-height: 24px; }
+.道具飞行页 .switch { width: auto; height: auto; min-height: 24px; flex: 0 0 auto; margin: 0 !important; justify-content: flex-start; }
+.道具飞行页 .switch-label { order: 1; flex: 0 0 32px; margin: 0; background: #CBD5E1; }
+.道具飞行页 .switch input:checked + .switch-label { background: #2563EB; }
+.道具飞行页 .switch > label:not(.switch-label) { order: 2; margin-left: 4px; }
+.道具飞行页 .switch span { color: #0F172A; font-size: 12px; line-height: 18px; white-space: nowrap; }
+.道具飞行页 .道具字段 { display: flex; align-items: center; min-height: 24px; min-width: 0; white-space: nowrap; }
+.道具飞行页 .道具字段 > p { margin: 0; line-height: 24px; }
+.道具飞行页 .道具字段 > .input { flex: 0 0 56px; box-sizing: border-box; width: 56px; height: 24px; margin: 0 0 0 8px; border: 1px solid #CBD5E1; border-radius: 5px; background: #FFFFFF; color: #0F172A; font-family: inherit; font-size: 12px; }
+.道具飞行页 .道具字段 > .input:focus { border-color: #2563EB; box-shadow: 0 0 0 2px rgba(60,132,189,.12); }
+.道具飞行页 .道具双列 { display: flex; align-items: stretch; margin-top: 6px; }
+.道具飞行页 .道具双列 > .道具卡片 { flex: 1 1 0; min-width: 0; margin-top: 0; }
+.道具飞行页 .道具双列 > .道具卡片 + .道具卡片 { margin-left: 10px; }
+.道具飞行页 .道具字段列表 .道具字段 { justify-content: space-between; }
+.道具飞行页 .道具字段列表 .道具字段 + .道具字段 { margin-top: 4px; }
+.道具飞行页 .道具锁行 { margin-top: 4px; padding-top: 4px; border-top: 1px solid #E2E8F0; }
+.道具飞行页 .道具物品锁 > p { color: #9b3f08; font-weight: 600; }
+.道具飞行页 .道具物品锁 > .input { width: 112px; flex-basis: 112px; }
+.道具飞行页 .飞行补给字段 { display: flex; margin-top: 3px; }
+.道具飞行页 .飞行补给字段 > .道具字段 { flex: 1 1 0; justify-content: space-between; }
+.道具飞行页 .飞行补给字段 > .道具字段 + .道具字段 { margin-left: 16px; }
+.道具飞行页 .飞行新区行 { margin-top: 3px; }
+.道具飞行页 .飞行旗色卡 { display: flex; align-items: stretch; }
+.道具飞行页 .飞行城市 { flex: 1 1 0; min-width: 0; }
+.道具飞行页 .飞行城市 + .飞行城市 { margin-left: 8px; }
+.道具飞行页 .飞行城市 > p { margin: 0 0 2px; line-height: 16px; text-align: center; }
+.道具飞行页 .飞行城市 .select-box { float: none; width: 100% !important; margin: 0 !important; }
+.道具飞行页 .飞行城市 .select { box-sizing: border-box; height: 24px; line-height: 22px; font-size: 12px; }
+.道具飞行页 .飞行城市 .options-list { min-width: 82px; }
+.道具飞行页 .飞行顺序显示 { display: flex; align-items: center; min-height: 24px; }
+.道具飞行页 #h4_3 { flex: 0 0 60px; width: 60px !important; margin: 0; border: none !important; text-align: left !important; font-size: 12px; }
+.道具飞行页 #买旗顺序_ { flex: 1 1 0; min-width: 0; margin-right: 6px; font-size: 11px !important; white-space: nowrap; }
+.道具飞行页 #清空3 { position: static !important; flex: 0 0 24px; width: 24px; height: 24px; margin: 0; padding: 0; border: 1px solid #1D4ED8; border-radius: 5px; background: #2563EB; justify-content: center; align-items: center; }
+.道具飞行页 #清空3 img { width: 18px !important; height: 18px !important; }
+.道具飞行页 .飞行地点网格 { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); grid-gap: 4px; margin-top: 4px; }
+.道具飞行页 .飞行地点网格 .beixuan_button1 { box-sizing: border-box; width: auto; height: 22px; margin: 0; padding: 0 4px; border: 1px solid #1D4ED8; border-radius: 5px; background: #2563EB; color: #fff; font-size: 12px; line-height: 20px; letter-spacing: 0; }
+.道具飞行页 .飞行门派行 { margin-top: 4px; }
+@media (max-height: 350px) {
+    .道具飞行页 .道具卡片 { padding-top: 3px; padding-bottom: 3px; }
+}
+
+
+/* 组队补给比例：人物在左、宠物在右，上血下蓝。 */
+.组队补给面板 { max-width: 620px; padding-right: 8px; }
+.组队补给分组 { display: flex; align-items: stretch; }
+.组队补给角色 + .组队补给角色 { margin-left: 12px; }
+.组队补给角色 { display: flex; flex: 1 1 0; min-width: 0; padding: 3px 8px; border: 1px solid #CBD5E1; border-radius: 7px; background: #FFFFFF; }
+.组队补给标题 { flex: 0 0 28px; width: 28px; margin-right: 7px; font-weight: 700; color: #0F172A; }
+.组队补给双条 { flex: 1 1 0; min-width: 0; }
+.组队补给项 { position: relative; width: 100%; height: 20px; overflow: hidden; border: 1px solid #64748B; border-radius: 4px; background: #CBD5E1; }
+.组队补给项 + .组队补给项 { margin-top: 2px; }
+.组队补给项 > .select, .组队补给项 > .options-list { display: none; }
+.组队补给填充 { position: absolute; left: 0; top: 0; bottom: 0; pointer-events: none; }
+.组队补给血 .组队补给填充 { background: linear-gradient(#ff7156, #e44730); }
+.组队补给蓝 .组队补给填充 { background: #2563EB; }
+.组队补给读数 { position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: flex; justify-content: flex-end; align-items: center; padding: 0 8px; color: #fff; font-size: 12px; text-shadow: 0 1px 2px #0F172A; pointer-events: none; }
+.组队补给读数 b { font-family: Arial, sans-serif; font-weight: 700; }
+.组队补给滑条 { position: absolute; left: 0; top: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
+.组队补给滑条:focus + .组队补给读数 { box-shadow: inset 0 0 0 1px rgba(255,255,255,0.7); }
+
+/* 通讯与血蓝分开；三个通讯码保留独立内容，蓝色组号表示当前启用。 */
+#设置box, #血蓝box { padding-right: 8px; color: #0F172A; }
+#设置box > p, #血蓝box > p { font-size: 11px; line-height: 15px; white-space: normal; }
+.通讯码设置 { margin-bottom: 4px; padding: 6px 8px; border: 1px solid #CBD5E1; border-radius: 9px; background: #FFFFFF; }
+.通讯码标题行 { display: flex; align-items: center; margin-bottom: 4px; line-height: 16px; }
+.通讯码标题行 strong { color: #0F172A; font-size: 14px; }
+.通讯码标题行 > span { margin-left: 12px; font-size: 11px; color: #0F172A; }
+.通讯码卡片行 { display: flex; }
+.通讯码卡片 { flex: 1 1 0; min-width: 0; padding: 5px; border: 1px solid #CBD5E1; border-radius: 7px; background: #FFFFFF; }
+.通讯码卡片 + .通讯码卡片 { margin-left: 9px; }
+.通讯码组选择 { display: block; margin: 0 0 4px; }
+.通讯码组选择 .radio-circle { display: none; }
+.通讯码组选择 a { display: block; padding: 2px 4px; border: 1px solid #CBD5E1; border-radius: 5px; background: #E2E8F0; color: #0F172A; font-size: 12px; line-height: 18px; text-align: center; }
+.通讯码组选择 input:checked ~ a { border-color: #2563EB; background: #2563EB; color: #fff; box-shadow: 0 1px 3px rgba(34,99,155,.18); }
+.通讯码使用中 { display: none; }
+.通讯码组选择 input:checked ~ a .通讯码使用中 { display: inline; }
+.通讯码卡片 .input { display: block; width: 100%; min-width: 0; height: 29px; margin: 0; padding: 0 5px; font-size: 13px; line-height: 27px; border-color: #CBD5E1; background: #fff; color: #0F172A; }
+.通讯码卡片 .input:focus { border-color: #2563EB; box-shadow: 0 0 0 2px rgba(47,133,198,.12); }
+#设置box .组队通讯提示 { margin: 5px 0 0; color: #0F172A; font-size: 11px; line-height: 16px; white-space: normal; }
+#血蓝box .组队补给面板 { max-width: none; padding-right: 0; margin-bottom: 8px; }
+@media (max-width: 550px) {
+    .通讯码设置 { padding: 7px; }
+    .通讯码卡片 { padding: 5px; }
+    .通讯码卡片 + .通讯码卡片 { margin-left: 6px; }
+    .通讯码卡片 .input { font-size: 12px; }
+}
+
+/* 带队：组队、提醒、收益和物品分区，保留原控件与配置。 */
+#带队box { color: #0F172A; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; padding: 0 7px 0 0; }
+#带队box .带队分组 { display: flex; align-items: stretch; }
+#带队box .带队列 + .带队列 { margin-left: 10px; }
+#带队box .带队列 { display: flex; flex-direction: column; align-items: stretch; flex: 1 1 0; min-width: 0; }
+#带队box .带队卡片 { align-self: stretch; box-sizing: border-box; padding: 4px 9px; border: 1px solid #CBD5E1; border-radius: 9px; background: #FFFFFF; box-shadow: 0 2px 5px rgba(46,75,104,.06); }
+#带队box .带队卡片 + .带队卡片 { margin-top: 4px; }
+#带队box .带队卡头 { display: flex; align-items: center; justify-content: space-between; min-height: 18px; margin-bottom: 2px; }
+#带队box strong { font-size: 13px; font-weight: 600; color: #0F172A; }
+#带队box .带队旗帜提示 { margin: 0 0 3px; color: #9b3f08; font-size: 12px; line-height: 16px; font-weight: 600; }
+#带队box .带队小字 { color: #0F172A; font-size: 10px; line-height: 14px; }
+#带队box .带队提示 { color: #9b3f08; font-size: 10px; line-height: 14px; margin: 0; }
+#带队box .带队提醒行 { display: flex; align-items: center; gap: 5px; white-space: nowrap; font-size: 11px; margin-bottom: 2px; }
+#带队box .带队提醒行 strong { margin-right: auto; }
+#带队box #输入框_带队_队友不战斗时间 { width: 80px; min-width: 0; margin: 0; border: 1px solid #CBD5E1; border-radius: 5px; background: #FFFFFF; color: #0F172A; height: 22px; }
+#带队box .带队领双卡 { background: #FFFFFF; }
+#带队box .带队奖励选项 { display: flex; gap: 7px; align-items: center; justify-content: space-between; margin: 3px 0 3px; }
+#带队box .Checkbox { margin: 0; white-space: nowrap; height: 23px; }
+#带队box .Checkbox .checkbox { flex: 0 0 auto; box-sizing: border-box; width: 14px; height: 14px; margin-right: 3px; border: 1px solid #CBD5E1; background: #FFFFFF; }
+#带队box .Checkbox input:checked + .checkbox { background: #2563EB; border-color: #2563EB; }
+#带队box .Checkbox .text { font-size: 11px; color: #0F172A; }
+#带队box #删除双倍存档 { width: auto; min-width: 0; height: 22px; padding: 0 7px; margin: 0; border: 1px solid #1D4ED8; border-radius: 5px; background: #2563EB; box-shadow: 0 2px 3px rgba(38,77,110,.18); color: #fff; font-size: 10px; font-weight: 600; line-height: 20px; }
+#带队box #删除双倍存档:active { background: #1D4ED8; box-shadow: inset 0 1px 2px rgba(24,54,80,.2); }
+#带队box .带队物品卡 .switch { margin: 2px 0 3px; }
+#带队box .带队物品卡 .switch span { color: #0F172A; font-size: 12px; }
+#带队box .带队物品提醒 { color: #9b3f08; }
+@media (max-width: 550px) {
+    #带队box .带队列 + .带队列 { margin-left: 7px; }
+    #带队box .带队卡片 { padding-left: 7px; padding-right: 7px; }
+    #带队box .带队奖励选项 { gap: 4px; }
+    #带队box #输入框_带队_队友不战斗时间 { width: 60px; }
+}
+
+/* 常用数字输入框：保留公共高度与字号，按可用宽度加宽；紧凑矩阵、弹窗与长文本保持原尺寸。 */
+#输入框_卡等级,
+#输入框_定时启动_h,
+#输入框_定时启动_m,
+#输入框_仓库扫描,
+#输入框_背包空格,
+#输入框_打图_次数随机值,
+#输入框_玲珑_次数min,
+#输入框_玲珑_次数max,
+#输入框_押镖次数,
+#输入框_青龙_环数,
+#输入框_起号_住店蓝量,
+#输入框_起号_探访升级,
+#输入框_起号_探访次数,
+#输入框_跟队_未进入战斗报警,
+#输入框_除暴_次数,
+#输入框_抓鬼_次数大,
+#输入框_抓鬼_次数小,
+#输入框_抓鬼_本周小鬼上限,
+#输入框_活动环_环数,
+#输入框_场景_抓宝宝次数,
+#输入框_厢房_环数,
+#输入框_厢房_车夫坐标x,
+#输入框_厢房_车夫坐标y,
+#输入框_打图_战斗场数,
+#输入框_打图_忠诚度,
+#输入框_师门_战斗场数,
+#输入框_师门_忠诚度,
+#输入框_玲珑_战斗场数,
+#输入框_玲珑_忠诚度,
+#输入框_除暴_场次min,
+#输入框_除暴_场次max,
+#输入框_抓鬼_场次min,
+#输入框_抓鬼_场次max,
+#输入框_降妖伏魔_场次min,
+#输入框_降妖伏魔_场次max,
+#输入框_天降星辰_场次min,
+#输入框_天降星辰_场次max,
+#输入框_活动环_场次min,
+#输入框_活动环_场次max,
+#输入框_场景_场次min,
+#输入框_场景_场次max,
+#输入框_十八门_场次min,
+#输入框_十八门_场次max,
+#输入框_厢房_场次min,
+#输入框_厢房_场次max,
+#输入框_飞贼_场次min,
+#输入框_飞贼_场次max,
+#输入框_文韵墨香_场次min,
+#输入框_文韵墨香_场次max { width: 48px !important; }
+
+@media (min-width: 560px) {
+#输入框_卡等级,
+#输入框_仓库扫描,
+#输入框_摊位买药x,
+#输入框_摊位买药y,
+#输入框_背包空格,
+#输入框_打图_次数随机值,
+#输入框_玲珑_次数min,
+#输入框_玲珑_次数max,
+#输入框_押镖次数,
+#输入框_青龙_环数,
+#输入框_青龙_车夫坐标x,
+#输入框_青龙_车夫坐标y,
+#输入框_起号_住店蓝量,
+#输入框_起号_探访升级,
+#输入框_起号_探访次数,
+#输入框_跟队_未进入战斗报警,
+#输入框_除暴_次数,
+#输入框_抓鬼_次数大,
+#输入框_抓鬼_次数小,
+#输入框_抓鬼_本周小鬼上限,
+#输入框_活动环_环数,
+#输入框_场景_抓宝宝次数,
+#输入框_厢房_环数,
+#输入框_厢房_车夫坐标x,
+#输入框_厢房_车夫坐标y,
+#输入框_打图_战斗场数,
+#输入框_打图_忠诚度,
+#输入框_师门_战斗场数,
+#输入框_师门_忠诚度,
+#输入框_玲珑_战斗场数,
+#输入框_玲珑_忠诚度,
+#输入框_除暴_场次min,
+#输入框_除暴_场次max,
+#输入框_抓鬼_场次min,
+#输入框_抓鬼_场次max,
+#输入框_降妖伏魔_场次min,
+#输入框_降妖伏魔_场次max,
+#输入框_天降星辰_场次min,
+#输入框_天降星辰_场次max,
+#输入框_活动环_场次min,
+#输入框_活动环_场次max,
+#输入框_场景_场次min,
+#输入框_场景_场次max,
+#输入框_十八门_场次min,
+#输入框_十八门_场次max,
+#输入框_厢房_场次min,
+#输入框_厢房_场次max,
+#输入框_飞贼_场次min,
+#输入框_飞贼_场次max,
+#输入框_文韵墨香_场次min,
+#输入框_文韵墨香_场次max,
+#输入框_报警弹窗时间,
+#输入框_打图_次数 { width: 56px !important; }
+}
+
+@media (min-width: 620px) {
+#输入框_摆摊x坐标,
+#输入框_摆摊y坐标,
+#输入框_偷卡超时一,
+#输入框_偷卡超时二,
+#输入框_偷卡超时三,
+#输入框_偷卡超时四,
+#输入框_偷卡超时五,
+#输入框_定时启动_h,
+#输入框_定时启动_m { width: 56px !important; }
+}
+
+/* 独立数值行原本有留白。 */
+@media (min-width: 560px) {
+#输入框_教师节_最低体力,
+#输入框_定时买二药_提前上线秒数 { width: 64px !important; }
+}
+
+/* 道具页只动独立限价框，固定142px购买矩阵保留原宽。 */
+#输入框_红蓝碗限价,
+#输入框_修理限价 { width: 64px !important; flex-basis: 64px !important; }
+
+/* 独立设置行加宽下拉框，保持原高度、字号与选项。 */
+#下拉框_师门_太清阁换,
+#下拉框_师门_155级是否渡劫,
+#下拉框_师门_战斗次数,
+#下拉框_场景_刷多久,
+#下拉框_场景_战斗延时 { width: 100px !important; }
+
+#下拉框_ybg,
+#下拉框_hdh,
+#下拉框_厢房,
+#下拉框_玄武总管坐标,
+#下拉框_fzg,
+#下拉框_wymxg,
+#下拉框_wymxg_qt,
+#下拉框_场景_卖体 { width: 112px !important; }
+
+@media (min-width: 620px) {
+    #下拉框_角色数量,
+    #下拉框_场景_脱离战斗后延时 { width: 100px !important; }
+}
+
+@media (min-width: 560px) {
+    #下拉框_九转金丹 { width: 100px !important; }
+}
+
+/* 血蓝独立页：显式列间距兼容旧WebView，补给选项留足触控空间。 */
+#血蓝box .血蓝补给行 { margin-top: 14px !important; flex-wrap: nowrap !important; gap: 0 !important; }
+#血蓝box .血蓝补给行 + .血蓝补给行 { margin-top: 12px !important; }
+#血蓝box .血蓝补给行 > div { flex: 1 1 0; min-width: 0; align-items: center; }
+#血蓝box .血蓝补给行 > div + div { margin-left: 20px; }
+#血蓝box .血蓝补给行 p { flex: 0 0 50px; margin: 0; line-height: 30px; white-space: nowrap; }
+#血蓝box .血蓝补给行 .select-box { flex: 1 1 0; width: auto !important; min-width: 0; margin-left: 0 !important; font-size: 13px; }
+#血蓝box .血蓝补给行 .select { height: 30px; line-height: 30px; border-radius: 5px; }
+#血蓝box .血蓝补给行 .option { height: 28px; line-height: 28px; font-size: 13px; }
+#血蓝box .血蓝补给行 + p { margin-top: 9px; }
+@media (max-width: 550px) {
+    #血蓝box .血蓝补给行 > div + div { margin-left: 14px; }
+}
+
+/* 通讯提醒逐条留白；矮屏压缩卡片外留白，保留输入框触控大小。 */
+#设置box > p { line-height: 20px; margin-top: 4px; }
+@media (max-height: 350px) {
+    #设置box > p { line-height: 18px; margin-top: 3px; }
+    #设置box .通讯码设置 { padding-top: 3px; padding-bottom: 3px; margin-bottom: 1px; }
+    #设置box .通讯码标题行 { margin-bottom: 2px; }
+    #设置box .组队通讯提示 { margin-top: 3px; }
+}
+
+/* 八个顶部入口；其他分类使用独立页面，原输入与选择保存规则不变。 */
+#qita:checked~.tab { left: 75%; }
+.wrapper nav label { min-width: 0; white-space: nowrap; }
+.wrapper .其他图标 { width: 20px; height: 20px; fill: currentColor; vertical-align: middle; margin-top: -4px; }
+#其他块 { margin-top: 4px; background: #F8FAFC; color: #0F172A; }
+.其他导航 { display: flex; margin: 0 12px 6px; }
+.其他导航 button { flex: 1 1 0; min-width: 0; height: 30px; padding: 0 3px; border: 1px solid #E2E8F0; border-radius: 8px; background: #FFFFFF; color: #0F172A; font-size: 13px; line-height: 28px; white-space: nowrap; outline: none; }
+.其他导航 button + button { margin-left: 6px; }
+.其他导航 button.active { border-color: #2563EB; background: #2563EB; color: #fff; box-shadow: 0 2px 4px rgba(42,102,151,.15); }
+.其他内容 { height: calc(100vh - 118px); padding: 4px 12px 8px; box-sizing: border-box; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+#其他块 .tongyongshezhi_box { position: static; left: auto; width: 100%; height: auto; padding-top: 0; overflow: visible; }
+#其他块 .zychbox1, #其他块 .zychbox2 { position: relative; }
+#其他块 #教师节box { max-width: none; padding-top: 0; }
+#其他块 #教师节box p { margin-bottom: 4px; line-height: 18px; }
+#其他块 #定时买二药box > p { max-width: 100% !important; white-space: normal; }
+
+/* 搬砖号合并页面：标题与设置同排，保留原控件尺寸。 */
+#其他块 .搬砖物品分组 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+}
+#其他块 .搬砖物品分组 > :first-child { grid-column: 2; grid-row: 1; }
+#其他块 .搬砖物品分组 > :nth-child(2) { grid-column: 1; grid-row: 1; }
+#其他块 .搬砖物品分组 > :last-child { grid-column: 1 / -1; }
+#其他块 .搬砖金币分组 {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    column-gap: 10px;
+    align-items: center;
+}
+#其他块 .搬砖金币分组 > :first-child { margin-bottom: 0 !important; }
+#其他块 .搬砖金币分组 > :last-child { grid-column: 1 / -1; margin-top: 6px !important; }
+
+/* 基础设置一、二：原控件分组排版，与起号页保持同一套浅蓝样式。 */
+#基础设置box { width: calc(100% - 118px); color: #0F172A; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; }
+#基础设置box .slider-wrapper { align-items: flex-start; }
+#基础设置box .基础美化页 { height: auto; box-sizing: border-box; padding: 2px 1px 5px; font-size: 12px; }
+#基础设置box .基础美化卡 { margin-top: 6px; padding: 4px 8px; border: 1px solid #CBD5E1; border-radius: 9px; background: #FFFFFF; box-shadow: 0 2px 5px rgba(46,75,104,.06); }
+#基础设置box .基础美化第二页 > .基础美化卡:first-child { margin-top: 0; }
+#基础设置box .基础美化第二页 > .基础美化卡 + .基础美化卡 { margin-top: 4px; }
+#基础设置box .基础常用卡, #基础设置box .基础仓库卡 { background: #FFFFFF; }
+#基础设置box .基础美化行 { display: flex; align-items: center; gap: 10px; min-height: 22px; }
+#基础设置box .基础美化行 + .基础美化行 { margin-top: 3px; }
+#基础设置box .基础美化卡头 { justify-content: space-between; }
+#基础设置box .基础美化标题 { color: #0F172A; font-size: 13px; font-weight: 600; white-space: nowrap; }
+#基础设置box .基础美化标题::before { content: ""; display: inline-block; width: 3px; height: 11px; margin-right: 6px; border-radius: 2px; background: #2563EB; vertical-align: -1px; }
+#基础设置box .基础美化字段 { display: flex; align-items: center; gap: 4px; white-space: nowrap; min-width: 0; }
+#基础设置box .基础美化页 .input { float: none !important; box-sizing: border-box; width: 52px !important; height: 22px; margin: 0; border: 1px solid #CBD5E1; border-radius: 5px; background: #FFFFFF; color: #0F172A; font-family: inherit; font-size: 12px; }
+#基础设置box .基础美化页 .input:focus { border-color: #2563EB; box-shadow: 0 0 0 2px rgba(60,132,189,.12); }
+#基础设置box .基础美化页 .select-box { flex: 0 0 auto; width: 70px; margin: 0; }
+#基础设置box .基础美化页 .select { box-sizing: border-box; min-height: 22px; height: 22px; border-color: #CBD5E1; border-radius: 5px; background: #FFFFFF; color: #0F172A; font-size: 12px; line-height: 20px; }
+#基础设置box .基础美化页 .switch { width: auto; height: auto; min-height: 22px; flex: 0 1 auto; min-width: 0; margin: 0 !important; justify-content: flex-start; gap: 4px; }
+#基础设置box .基础美化页 .switch > label:not(.switch-label) { order: 2; min-width: 0; flex: 0 1 auto; }
+#基础设置box .基础美化页 .switch-label { order: 1; flex: 0 0 32px; margin: 0; background: #CBD5E1; }
+#基础设置box .基础美化页 .switch-label::after { background: #FFFFFF; box-shadow: 0 1px 2px rgba(30,65,90,.18); }
+#基础设置box .基础美化页 .switch input:checked + .switch-label { background: #2563EB; }
+#基础设置box .基础美化页 .switch span { display: block; color: #0F172A; font-size: 12px; line-height: 18px; }
+#基础设置box .基础美化页 .switch b { display: block; font-weight: 500; line-height: 18px; }
+#基础设置box .基础美化页 .switch small { display: block; color: #0F172A; font-size: 10px; line-height: 13px; }
+#基础设置box .基础美化行.基础维护工具 { gap: 0; }
+#基础设置box .基础美化页 .bt, #基础设置box #导入token { display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: auto; min-width: 0; height: 24px; margin: 0; padding: 0 7px !important; border: 1px solid #1D4ED8 !important; border-radius: 6px; background: #2563EB !important; color: #fff; box-shadow: 0 2px 3px rgba(38,77,110,.18); font-family: inherit; font-size: 12px; line-height: 22px; letter-spacing: 0; white-space: nowrap; cursor: pointer; }
+#基础设置box .基础维护工具 .bt { flex: 1 1 0; }
+#基础设置box .基础维护工具 .bt + .bt { margin-left: 12px; }
+
+#基础设置box #导入token { height: 22px; font-size: 11px; }
+#基础设置box #导入token img { width: 14px; height: 14px; margin-right: 4px !important; }
+#基础设置box .基础美化页 .bt:active, #基础设置box #导入token:active { filter: brightness(.94); transform: translateY(1px); }
+#基础设置box .基础换号行 { padding-top: 3px; margin-top: 3px; border-top: 1px solid #E2E8F0; }
+
+
+#基础设置box .基础报警行 { justify-content: flex-start; }
+#基础设置box .基础温和提醒 { color: #9b3f08; font-size: 10px; }
+#基础设置box .基础定时行 { gap: 8px; justify-content: space-between; }
+#基础设置box .基础定时字段, #基础设置box .基础键盘工具 { display: flex; align-items: center; gap: 4px; }
+#基础设置box .基础定时字段 > .switch { flex: 0 0 auto; gap: 4px; }
+#基础设置box .基础定时字段 .input { width: 43px !important; }
+#基础设置box .基础键盘工具 .bt { height: 22px; padding: 0 5px !important; font-size: 11px; line-height: 20px; }
+#基础设置box .基础常用网格 { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); column-gap: 14px; row-gap: 5px; }
+#基础设置box .基础常用网格 > .switch { min-height: 34px; }
+#基础设置box .基础界面卡 > #运行速度盒子 { margin-bottom: 4px; padding-bottom: 3px; height: 22px; box-sizing: content-box; border-bottom: 1px solid #E2E8F0; gap: 5px; }
+#基础设置box #运行速度盒子 > p:first-child { color: #0F172A; font-weight: 600; }
+#基础设置box #运行速度盒子 #slider1 { flex: 0 1 160px; width: 160px; max-width: 160px; min-width: 100px; accent-color: #2563EB; }
+#基础设置box .基础界面卡 > #运行速度盒子 { gap: 0; }
+#基础设置box #运行速度盒子 > * + * { margin-left: 8px; }
+#基础设置box #运行速度盒子 #sliderValue1 { background: #E2E8F0; color: #0F172A; border-radius: 5px; font-weight: 600; height: 22px; line-height: 22px; }
+#基础设置box .基础界面卡 .基础界面行 { justify-content: space-between; gap: 0; }
+#基础设置box .基础界面卡 .基础界面行 > .switch { flex: 0 0 auto; }
+#基础设置box .基础界面卡 .switch { gap: 0; }
+#基础设置box .基础界面卡 .switch > label:not(.switch-label) { margin-left: 4px; }
+#基础设置box .基础界面卡 .基础双列行 { margin-top: 6px; gap: 0; }
+#基础设置box .基础界面卡 .基础双列行 > .switch + .switch { margin-left: 18px !important; }
+#基础设置box .基础双列行 { gap: 18px; }
+
+#基础设置box .基础活力行 { gap: 7px; }
+#基础设置box .基础活力行 > span { white-space: nowrap; }
+#基础设置box .基础活力选项 { display: flex; gap: 4px; flex: 1 1 auto; }
+#基础设置box .基础活力选项 .custom-radio { flex: 1; margin: 0; min-width: 0; }
+#基础设置box .基础活力选项 .radio-circle { display: none; }
+#基础设置box .基础活力选项 a { display: block; box-sizing: border-box; width: 100%; border: 1px solid #CBD5E1; border-radius: 5px; background: #FFFFFF; color: #0F172A; font-size: 12px; text-align: center; line-height: 22px; white-space: nowrap; }
+#基础设置box .基础活力选项 input:checked ~ a, #基础设置box .基础活力选项 .radio-circle.checked + a { background: #2563EB; color: #fff; border-color: #1D4ED8; }
+#基础设置box .基础活力行 > .switch { flex: 0 0 93px; margin-left: 4px !important; }
+#基础设置box .基础换号行 { gap: 20px; }
+#基础设置box .基础美化行.基础运行安排 { gap: 0; min-height: 24px; }
+#基础设置box .基础运行安排 > .switch:first-child { flex: 0 0 36%; }
+#基础设置box .基础运行安排 > .switch:last-child { margin-left: 18px !important; flex: 1 1 auto; }
+#基础设置box .基础运行安排 .switch span { display: flex; align-items: center; }
+#基础设置box .基础运行安排 .switch small { margin-left: 8px; white-space: nowrap; }
+#基础设置box .基础运行卡 .switch { gap: 0; }
+#基础设置box .基础运行卡 .switch > label:not(.switch-label) { margin-left: 4px; }
+#基础设置box .基础运行卡 .基础报警行, #基础设置box .基础运行卡 .基础定时行 { padding-top: 2px; border-top: 1px solid #E2E8F0; }
+#基础设置box .基础运行卡 .基础美化行 .input { width: 64px !important; height: 24px; font-size: 13px; }
+#基础设置box .基础运行卡 .基础报警行 .基础美化字段 { gap: 0; }
+#基础设置box .基础运行卡 .基础报警行 .基础美化字段 > span:first-child { flex: 0 0 100px; }
+#基础设置box .基础运行卡 .基础报警行 .input { margin-left: 8px; }
+#基础设置box .基础运行卡 .基础温和提醒 { margin-left: 8px; }
+#基础设置box .基础运行卡 .基础定时字段 { gap: 0; }
+#基础设置box .基础运行卡 .基础定时字段 > .switch { flex: 0 0 100px; }
+#基础设置box .基础运行卡 .基础定时字段 > .switch + .input { margin-left: 8px; }
+#基础设置box .基础运行卡 .基础定时字段 > span { margin: 0 8px; color: #0F172A; }
+#基础设置box .基础美化行.基础键盘行 { gap: 0; padding-top: 3px; border-top: 1px solid #E2E8F0; }
+#基础设置box .基础键盘工具 { gap: 0; margin-left: 10px; }
+#基础设置box .基础键盘工具 .bt + .bt { margin-left: 12px; }
+#基础设置box .基础美化行.基础任务独立行 { gap: 0; justify-content: space-between; }
+#基础设置box .基础任务独立行 > .switch { flex: 0 0 auto; gap: 0; }
+#基础设置box .基础任务独立行 .switch > label:not(.switch-label) { margin-left: 4px; }
+#基础设置box .基础仓库首行 { gap: 14px; }
+#基础设置box .基础仓库首行 .基础美化字段 { margin-left: auto; }
+#基础设置box .基础常用网格 > .switch { align-items: flex-start; }
+#基础设置box .基础常用网格 .switch-label { margin-top: 2px; }
+@media (max-height: 350px) {
+    #基础设置box .基础美化卡 { margin-top: 5px; padding-top: 3px; padding-bottom: 3px; }
+    #基础设置box .基础美化行 + .基础美化行 { margin-top: 2px; }
+    #基础设置box .基础界面卡 > #运行速度盒子 { margin-bottom: 2px; padding-bottom: 1px; }
+}
+@media (max-width: 550px) {
+    #基础设置box .基础美化卡 { padding-left: 6px; padding-right: 6px; }
+    #基础设置box .基础美化行 { gap: 7px; }
+    #基础设置box .基础美化页 .select-box { width: 62px; }
+    #基础设置box .基础定时字段 .input { width: 38px !important; }
+    #基础设置box .基础键盘工具 .bt { font-size: 10px; padding: 0 4px !important; }
+    #基础设置box .基础常用网格 { column-gap: 10px; }
+    #基础设置box .基础双列行 { gap: 12px; }
+}
+
+/* 普通下拉内容统一深色文字，选中状态继续由原样式区分。 */
+#血蓝box .血蓝补给行 .select { color: #0F172A; }
+
+#教师节box .switch + span { color: #0F172A !important; }
+
+/* 道具输入与飞行设置的留白按控件用途分开。 */
+#道具类box .道具字段列表 .input { width: 96px; flex-basis: 96px; }
+#旗子设置界面id .飞行补给卡 > .道具横排 { justify-content: flex-start; }
+#旗子设置界面id .飞行补给卡 > .道具横排 > .switch + .switch { margin-left: 28px !important; }
+#旗子设置界面id .飞行补给字段 > .道具字段 { flex: 0 0 auto; justify-content: flex-start; }
+#旗子设置界面id .飞行补给字段 > .道具字段 + .道具字段 { margin-left: 32px; }
+#旗子设置界面id #h4_3 { width: 54px !important; flex-basis: 54px; }
+#旗子设置界面id #买旗顺序_ { box-sizing: border-box; height: 26px; padding: 0 7px; border: 1px solid #CBD5E1; border-radius: 5px; background: #FFFFFF; color: #0F172A; font-size: 12px !important; line-height: 24px; }
+#旗子设置界面id #买旗顺序_:empty::before { content: "点下方地点添加"; color: #64748B; }
+
+/* 参考背包旗面与金边配色；飞行符使用金棕色纸符外观。 */
+#旗子设置界面id [data-flag-color="红色"] { --flag-light: #ff3215; --flag-dark: #d80900; --flag-ink: #ffffff; }
+#旗子设置界面id [data-flag-color="黄色"] { --flag-light: #fff51a; --flag-dark: #e9ce00; --flag-ink: #2c2600; }
+#旗子设置界面id [data-flag-color="绿色"] { --flag-light: #72ef13; --flag-dark: #28c500; --flag-ink: #103500; }
+#旗子设置界面id [data-flag-color="白色"] { --flag-light: #ffffff; --flag-dark: #ffffff; --flag-ink: #222222; }
+#旗子设置界面id [data-flag-color="蓝色"] { --flag-light: #2468ff; --flag-dark: #073acb; --flag-ink: #ffffff; }
+#旗子设置界面id [data-flag-color="紫色"] { --flag-light: #bb23ff; --flag-dark: #8010d7; --flag-ink: #ffffff; }
+#旗子设置界面id [data-flag-color="粉色"] { --flag-light: #ff68d1; --flag-dark: #ee2099; --flag-ink: #410426; }
+#旗子设置界面id [data-flag-color="橙色"] { --flag-light: #ffb41a; --flag-dark: #ff7200; --flag-ink: #411b00; }
+#旗子设置界面id [data-flag-color="飞行符"] { --flag-light: #f5e5bd; --flag-dark: #d9ba82; --flag-ink: #563a20; }
+#旗子设置界面id .select[data-flag-color], #旗子设置界面id .option[data-flag-color] { background: linear-gradient(135deg, var(--flag-light, #f8fbfe), var(--flag-dark, #edf4fb)); color: var(--flag-ink, #222222); border-color: #b58015; box-shadow: inset 0 1px 0 rgba(255,231,147,.8); }
+#旗子设置界面id .select[data-flag-color="飞行符"], #旗子设置界面id .option[data-flag-color="飞行符"] { background: #c3a45e url("./picture/flight-talisman-paper.png") center / 100% 100% no-repeat; color: #30123e; text-shadow: 0 1px 2px #fff0ac, 0 -1px 2px #fff0ac, 1px 0 2px #fff0ac, -1px 0 2px #fff0ac; font-weight: 600; }
+#旗子设置界面id .select[data-flag-color]::after { border-color: var(--flag-ink, #775a30); }
+#旗子设置界面id .option[data-flag-color] { margin-bottom: 2px; }
+#旗子设置界面id .option[data-flag-color]:last-child { margin-bottom: 0; }
+#旗子设置界面id .option[data-flag-color].selected { box-shadow: inset 3px 0 0 #775a30; outline: 1px solid #aa8249; outline-offset: -1px; font-weight: 700; }
+
+/* 换号的三个设置保持独立间距，兼容不支持 flex gap 的旧 WebView。 */
+#基础设置box .基础美化行.基础换号行 { gap: 0; justify-content: space-between; }
+#基础设置box .基础换号行 > * { flex: 0 0 auto; }
+#基础设置box .基础换号行 > * + * { margin-left: 16px; }
+#基础设置box .基础换号行 .switch, #基础设置box .基础换号行 .基础美化字段 { gap: 0; }
+#基础设置box .基础换号行 .switch > label:not(.switch-label) { margin-left: 4px; }
+#基础设置box .基础换号行 .基础美化字段 > .select-box, #基础设置box .基础换号行 .基础美化字段 > .input { margin-left: 8px; }
+
+#旗子设置界面id .飞行补给字段 .input { width: 96px; flex-basis: 96px; }
+
+/* 起号的门派与住店分开，组内留白使用旧 WebView 支持的边距。 */
+#起号块 .起号设置行:first-child { gap: 0; }
+#起号块 .起号设置行:first-child > .起号设置项 { flex: 0 0 auto; gap: 0; }
+#起号块 .起号设置行:first-child > .起号设置项 + .起号设置项 { margin-left: 32px; }
+#起号块 .起号设置行:first-child .起号设置项 > * + * { margin-left: 6px !important; }
+#起号块 .起号设置行:first-child .switch { margin: 0; }
+#起号块 .起号设置行:first-child .switch-label { margin-right: 4px; }
+
+/* 跟队：组队方式、离队判断和战斗提醒分别呈现，保存控件沿用原节点。 */
+#跟队box { box-sizing: border-box; padding: 6px 10px 0; color: #0F172A; font-family: Arial, "Microsoft YaHei", sans-serif; }
+#跟队box .跟队卡片 { box-sizing: border-box; padding: 4px 10px; border: 1px solid #CBD5E1; border-radius: 9px; background: #FFFFFF; box-shadow: 0 2px 5px rgba(46,75,104,.06); }
+#跟队box strong { color: #0F172A; font-size: 13px; line-height: 20px; font-weight: 600; }
+#跟队box .跟队字段 { display: flex; align-items: center; min-height: 26px; margin-top: 0; font-size: 13px; white-space: nowrap; }
+#跟队box .跟队字段 > * + * { margin-left: 8px; }
+#跟队box .跟队字段 .select-box { float: none; width: 96px !important; flex: 0 0 96px; }
+#跟队box .跟队字段 .select { box-sizing: border-box; height: 26px; line-height: 24px; font-size: 13px; border-color: #CBD5E1; border-radius: 5px; background: #FFFFFF; color: #0F172A; }
+#跟队box .跟队字段 .input { box-sizing: border-box; float: none !important; width: 96px !important; flex: 0 0 96px; height: 26px; margin: 0; border: 1px solid #CBD5E1; border-radius: 5px; background: #FFFFFF; color: #0F172A; font-size: 13px; }
+#跟队box .跟队说明 { margin: 6px 0 0; color: #0F172A; font-size: 12px; line-height: 17px; }
+#跟队box .跟队领双行 { margin-top: 7px; }
+#跟队box .Checkbox { display: flex; height: 24px; margin: 0; }
+#跟队box .Checkbox .checkbox { box-sizing: border-box; flex: 0 0 18px; width: 18px; height: 18px; margin-right: 8px; border: 1px solid #64748B; border-radius: 4px; background: #FFFFFF; }
+#跟队box .Checkbox input:checked + .checkbox { background: #2563EB; border-color: #1D4ED8; }
+#跟队box .Checkbox .text { color: #0F172A; font-size: 13px; }
+#跟队box .跟队启动提醒 { margin: 6px 2px 0; color: #9b3f08; font-size: 12px; line-height: 18px; font-weight: 600; }
+@media (max-height: 350px) {
+    #跟队box { padding-top: 4px; }
+    #跟队box .跟队卡片 { padding-top: 3px; padding-bottom: 3px; }
+}
+
+/* 场景按角色分类，保留原控件、配置键与切页事件。 */
+#场景box { font-family: Arial, "Microsoft YaHei", sans-serif; color: #0F172A; }
+#场景box .select, #场景box .input, #场景box textarea { font-family: inherit; color: #0F172A; }
+#场景box .场景-tabs-layout { display: flex; align-items: flex-start; }
+#场景box .场景-page-nav { flex: 0 0 72px; width: 72px; height: auto; padding: 4px 0; flex-direction: column; align-self: flex-start; margin-right: 10px; gap: 0; }
+#场景box .场景-page-button { width: 72px; min-width: 0; height: 46px; padding: 2px 0; line-height: 20px; border-radius: 6px; background: #E2E8F0; color: #0F172A; }
+#场景box .场景-page-button span { display: block; }
+#场景box .场景-page-button + .场景-page-button { margin-top: 8px; }
+#场景box .场景-page-button.active { background: #2563EB; border-color: #1D4ED8; color: #ffffff; }
+#场景box .场景-page-content { flex: 1 1 auto; width: auto; min-width: 0; }
+#场景box .slider-wrapper2 { align-items: flex-start; }
+#场景box .slider-page { height: auto !important; flex-shrink: 0; }
+#场景box .场景独立设置行 { display: flex; align-items: center; box-sizing: border-box; min-height: 32px; margin-top: 4px; padding: 5px 10px; border: 1px solid #CBD5E1; border-radius: 7px; background: #FFFFFF; }
+#场景box .场景独立设置行 + .场景独立设置行 { margin-top: 8px; }
+#场景box .场景独立设置行 > * { margin-top: 0 !important; }
+#场景box .场景独立设置行 .input { margin: 0 4px; }
+#场景box .场景独立设置行 .switch-label { margin-right: 5px; }
+#场景box .select, #场景box .input { border-color: #CBD5E1; border-radius: 5px; background: #FFFFFF; }
+#场景box .场景地图行 { align-items: center; }
+#场景box .场景地图行 > div:last-child { margin-left: 20px !important; }
+#场景box .场景共同页 p { white-space: nowrap; flex-shrink: 0; }
+#场景box .场景地图提示 { margin: 0; font-size: 11px; line-height: 16px; color: #9b3f08; }
+#场景box .场景扫描行 { display: flex; align-items: center; margin-top: 5px !important; }
+#场景box .场景扫描行 .select-box { width: auto !important; flex: 1; min-width: 0; }
+#场景box .场景共同战斗方式 { display: flex; align-items: center; margin-top: 5px; }
+#场景box .场景共同战斗方式 > p { flex: 0 0 auto; margin-right: 6px; }
+#场景box .场景共同战斗方式 > div { flex: 1; min-width: 0; gap: 0 !important; }
+#场景box .场景共同页 .custom-radio + .custom-radio { margin-left: 5px; }
+#场景box .场景战斗行 { align-items: center; }
+#场景box .场景战斗行 > p[style*="margin-left: 30px"] { margin-left: 16px !important; }
+#场景box #下拉框_场景_战斗延时 { width: 70px !important; flex: 0 0 70px; }
+#场景box #下拉框_场景_脱离战斗后延时 { width: 76px !important; flex: 0 0 76px; }
+#场景box #下拉框_场景_遇到宝宝 { flex: 1; min-width: 0; }
+#场景box .场景抓宠名称区 { margin-top: 5px; }
+#场景box .场景抓宠标题行 { display: flex; align-items: center; justify-content: space-between; }
+#场景box .场景抓宠标题行 > div:first-child { gap: 0 !important; }
+#场景box #场景_屏蔽宝宝说明 { margin-left: 8px; }
+#场景box .场景抓取回合 { display: flex; align-items: center; }
+#场景box .场景抓取回合 .input { margin: 0 4px; }
+#场景box #输入框_场景_屏蔽宝宝 { display: block; box-sizing: border-box; height: 32px !important; background: #FFFFFF !important; border-color: #CBD5E1 !important; border-radius: 5px !important; color: #0F172A; }
+@media (min-height: 360px) {
+ #场景box #输入框_场景_屏蔽宝宝 { height: 48px !important; }
+}
+
+/* 队长页有余量，下拉框加高并保持同排文字居中。 */
+#场景box .场景队长页 .场景独立设置行 > div { align-items: center; }
+#场景box .场景队长页 .select { box-sizing: border-box; height: 28px; line-height: 26px; }
+
+/* 血蓝独立顶部入口；人物和宠物各自保留补给比例与方式。 */
+.wrapper .血蓝图标 { width: 20px; height: 20px; vertical-align: middle; margin-top: -4px; }
+#血蓝块 { width: 96%; margin: 8px auto 0; }
+#血蓝box { padding-right: 6px; }
+#血蓝box .血蓝适用提醒 { margin-top: 4px; color: #9b3f08; font-size: 12px; font-weight: 400; line-height: 18px; }
+#血蓝box .组队补给角色 { display: block; padding: 8px 10px 10px; }
+#血蓝box .组队补给标题 { width: auto; margin: 0 0 6px; font-size: 14px; line-height: 20px; }
+#血蓝box .组队补给项 { height: 24px; }
+#血蓝box .组队补给项 + .组队补给项 { margin-top: 5px; }
+#血蓝box .血蓝补给方式 { margin-top: 8px; }
+#血蓝box .血蓝补给方式 p { color: #0F172A; margin-bottom: 3px; font-size: 13px; line-height: 18px; }
+#血蓝box .血蓝补给方式 .select-box { width: 100% !important; margin-left: 0 !important; }
+#血蓝box .血蓝补给方式 .select { height: 30px; line-height: 28px; font-size: 13px; color: #0F172A; }
+#血蓝box .血蓝补给方式 .option { height: 28px; line-height: 28px; font-size: 13px; }
+#血蓝box .血蓝使用提醒 { margin-top: 7px; font-size: 12px; line-height: 18px; color: #9b3f08; }
+/* 起号使用单人原侧栏；无关的设置项换行后继续留足间距。 */
+#日常任务块 #起号块 { width: calc(100vw - 120px); max-width: calc(100% - 8px); margin: 0; padding: 0 0 8px; }
+#起号块 .起号设置行 + .起号设置行 { flex-wrap: wrap; }
+#起号块 .起号设置行 + .起号设置行 > .起号设置项:last-child { width: 100%; margin: 5px 0 0; }
+#起号块 .起号设置行:first-child > .起号设置项 + .起号设置项 { margin-left: 22px; }
+#起号块 .起号设置行:first-child .select-box { width: 90px !important; }
+#起号块 .起号设置行:first-child .input { width: 42px; }
+
+@media (max-height: 350px) {
+    #血蓝box .组队补给角色 { padding-top: 6px; padding-bottom: 6px; }
+    #血蓝box .组队补给标题 { margin-bottom: 4px; }
+    #血蓝box .血蓝使用提醒 { margin-top: 5px; }
+    #起号块 .起号加点卡 { padding-top: 3px; padding-bottom: 3px; }
+    #起号块 .起号加点标题 { margin-bottom: 2px; }
+    #起号块 .起号基础设置 { margin-top: 5px; }
+    #起号块 .起号设置行 + .起号设置行 > .起号设置项:last-child { margin-top: 4px; }
+}
+
+/* 单人任务：补给统一到顶部血蓝，任务设置按用途分组。 */
+.日常任务box > .单人美化页, #师门box { box-sizing: border-box; width: calc(100vw - 120px); max-width: calc(100% - 8px); }
+.单人美化页 { box-sizing: border-box; padding: 1px 0 6px; color: #0F172A; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; font-size: 12px; }
+.单人设置卡 { display: block; box-sizing: border-box; padding: 7px 9px; border: 1px solid #CBD5E1; border-radius: 8px; background: #FFFFFF; }
+.单人设置卡 + .单人设置卡 { margin-top: 9px; }
+.单人美化页 .单人行 { display: flex; align-items: center; min-height: 27px; }
+.单人美化页 .单人行 + .单人行 { margin-top: 7px; }
+.单人美化页 .单人行 > * + * { margin-left: 7px; }
+.单人美化页 .单人行 > .input:not(:first-child) { margin-left: 7px !important; }
+.单人美化页 .单人字段 { display: flex; align-items: center; min-width: 0; white-space: nowrap; }
+.单人美化页 .单人字段 > label { margin-right: 6px; }
+.单人美化页 .单人双字段 { justify-content: space-between; }
+#打图box .单人双字段 { justify-content: flex-start; }
+.单人美化页 .单人双字段 > * + * { margin-left: 18px; }
+.单人美化页 .input { float: none !important; box-sizing: border-box; width: 64px !important; height: 27px; margin: 0 !important; padding: 0 4px; color: #0F172A; font-size: 13px; border: 1px solid #CBD5E1; border-radius: 5px; background: #FFFFFF; }
+.单人美化页 .select-box { flex: 0 0 auto; width: 110px !important; margin: 0 !important; }
+.单人美化页 .select { box-sizing: border-box; height: 27px !important; line-height: 25px !important; color: #0F172A; font-size: 13px; }
+.单人美化页 .option { font-size: 13px; line-height: 22px; }
+.单人美化页 .switch { flex: 0 0 auto; width: auto; height: auto; min-height: 24px; margin: 0 !important; }
+.单人美化页 .switch > label:not(.switch-label) { margin-left: 4px; }
+.单人美化页 .switch-label { flex: 0 0 32px; width: 32px; height: 16px; }
+.单人美化页 .switch span { color: #0F172A; font-size: 12px; line-height: 18px; }
+.单人美化页 .单人开关行 { justify-content: space-between; }
+.单人美化页 .单人开关行 > .switch + .switch { margin-left: 16px !important; }
+.单人美化页 .单人说明 { display: block; margin: 5px 0 0; font-size: 11px; line-height: 15px; color: #a94b12; white-space: normal; }
+.单人美化页 .单人补给提示 { margin-top: 7px; }
+.单人美化页 .单人忠诚行 { font-size: 11px; white-space: nowrap; }
+.单人美化页 .单人忠诚行 .input { width: 52px !important; }
+.单人美化页 .单人模式字段 { width: 100%; }
+.单人美化页 .单人模式字段 .select-box { flex: 1 1 auto; width: auto !important; }
+.单人美化页 .单人战斗行 { display: flex; margin: 0 !important; padding: 0; }
+.单人美化页 .单人战斗行 + .单人战斗行, .单人美化页 .单人行 + .单人战斗行 { margin-top: 7px !important; }
+.单人美化页 .单人战斗行 > p { flex: 0 0 85px; margin-right: 5px; font-size: 12px; }
+.单人美化页 .单人战斗行 .战斗方案选择组 { min-width: 0; gap: 0 !important; }
+.单人美化页 .单人战斗行 .custom-radio + .custom-radio { margin-left: 3px; }
+.单人美化页 .单人战斗行 .custom-radio a { padding: 2px 0; font-size: 12px; line-height: 22px; }
+.单人美化页 .单人战斗行 .custom-radio input:not(:checked) ~ a { color: #0F172A; }
+#师门box .slider-wrapper1 { align-items: flex-start; }
+#师门box .单人师门页 { height: auto !important; flex: 0 0 100%; width: 100%; min-width: 0; padding: 0 0 3px; font-size: 11px; }
+#师门box .单人设置卡 { padding: 3px 7px; }
+#师门box .单人设置卡 + .单人设置卡 { margin-top: 4px; }
+#师门box .单人行 { min-height: 23px; }
+#师门box .单人行 + .单人行 { margin-top: 2px; }
+#师门box .input, #师门box .select { height: 24px !important; font-size: 12px; line-height: 22px !important; }
+#师门box .switch { min-height: 22px; }
+#师门box .switch span { font-size: 11px; line-height: 17px; }
+#师门box .单人字段 .select-box { width: 67px !important; }
+#师门box .单人价格行 { justify-content: space-between; }
+#师门box .单人价格行 .单人字段 { flex: 0 0 47%; justify-content: space-between; }
+#师门box .单人价格行 .input { width: 78px !important; }
+#师门box .单人收服首行 .单人失败字段 { margin-left: auto; }
+#师门box .单人收服首行 .input { width: 54px !important; }
+#师门box .单人宠物防御行 .单人字段 { width: 100%; justify-content: flex-start; }
+#师门box .单人宠物防御行 .input { width: 110px !important; }
+#师门box .单人门贡行 { justify-content: space-between; }
+#师门box .单人门贡行 .单人字段 { margin-left: 10px; }
+#师门box .单人放弃条件 { white-space: nowrap; }
+#师门box .单人放弃条件 .select-box { width: 54px !important; }
+#师门box .单人战斗行 > p { flex-basis: 83px; font-size: 11px; }
+#师门box .单人战斗行 + .单人战斗行 { margin-top: 5px !important; }
+#师门box .单人收服说明 > div { margin: 0 !important; }
+#师门box .单人收服说明 p { font-size: 10px; line-height: 14px; white-space: normal; }
+#师门box .单人补给提示 { margin-top: 2px; font-size: 10px; line-height: 14px; }
+#师门box .单人查询行 { margin-bottom: 2px; white-space: nowrap; font-size: 10px; }
+#师门box .单人查询行 .input { flex: 1 1 0; min-width: 0; width: auto !important; }
+#师门box .单人查询行 .bt { flex: 0 0 48px; height: 24px; margin: 0 0 0 6px; padding: 0 6px; border: 1px solid #1D4ED8; border-radius: 5px !important; background: #2563EB !important; color: #fff; font-size: 12px !important; }
+#师门box .单人店铺说明 { display: block; font-size: 10px; line-height: 13px; margin-bottom: 4px; }
+#师门box .单人店铺说明 p { line-height: 13px; display: inline; margin: 0 6px 0 0; white-space: normal; }
+#师门box .单人店铺说明 p:last-child { display: block; color: #0F172A !important; }
+#师门box .单人店铺表 { display: block; padding: 3px 7px; border: 1px solid #CBD5E1; border-radius: 8px; background: #FFFFFF; }
+#师门box .单人店铺表头, #师门box .单人店铺数据 { display: flex; align-items: center; width: 100%; }
+#师门box .单人店铺表头 { font-size: 11px; line-height: 17px; }
+#师门box .单人店铺数据 + .单人店铺数据 { margin-top: 2px; }
+#师门box .单人店铺表头 > *, #师门box .单人店铺数据 > .input { flex: 1 1 0 !important; min-width: 0; width: 0 !important; }
+#师门box .单人店铺表头 > :last-child, #师门box .单人店铺数据 > .input:last-child { flex: 1.9 1 0 !important; }
+#师门box .单人店铺表头 > * + *, #师门box .单人店铺数据 > .input + .input { margin-left: 8px !important; }
+#师门box .单人店铺表头 > * + * { margin-left: 8px; }
+@media (max-width: 550px) {
+ .单人设置卡 { padding-left: 7px; padding-right: 7px; }
+ .单人美化页 .单人双字段 > * + * { margin-left: 12px; }
+ .单人美化页 .select-box { width: 96px !important; }
+ .单人美化页 .单人忠诚行 > * + * { margin-left: 4px; }
+ .单人美化页 .单人战斗行 > p { flex-basis: 78px; font-size: 11px; }
+ .单人美化页 .单人战斗行 .custom-radio a { font-size: 11px; }
+}
+@media (max-height: 350px) {
+ #师门box .单人行 { min-height: 22px; }
+ #师门box .input, #师门box .select { height: 22px !important; line-height: 20px !important; }
+ #师门box .单人店铺数据 .input { height: 21px !important; }
+ #师门box .单人店铺数据 + .单人店铺数据 { margin-top: 2px; }
+}
+
+/* 云配置：保留首页一行入口，名称和操作在独立窗口内完成。 */
+.首页快捷工具栏 { height: 32px; gap: 0; }
+.首页快捷按钮组 { flex: 1 1 auto; min-width: 0; gap: 0; }
+.首页快捷按钮组 > button + button, .首页快捷工具栏 > div + div { margin-left: 14px; }
+.首页快捷按钮组 > button { height: 30px; flex: 0 0 auto; }
+
+.首页快捷按钮组 > #云配置入口 { display: flex; align-items: center; justify-content: center; flex: 1 1 160px; min-width: 160px; max-width: 260px; padding: 0 9px; border-color: #1D4ED8; background: #2563EB; color: #fff; }
+#云配置入口 > span:first-child { flex: 0 0 auto; }
+#云配置当前名称 { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.首页快捷按钮组 > .首页售后按钮 { width: 80px; }
+.首页快捷按钮组 > .首页上传日志按钮 { width: 96px; }
+.首页喵码入口 { flex-basis: 76px; }
+.首页喵提醒按钮 { width: 76px; height: 30px; }
+.云配置窗口box { align-items: stretch; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 557; display: none; flex-direction: column; box-sizing: border-box; width: calc(100vw - 28px); max-width: 760px; height: 326px; max-height: calc(100vh - 18px); padding: 10px 12px 7px; border: 1px solid #CBD5E1; border-radius: 10px; background: #FFFFFF; color: #0F172A; box-shadow: 0 8px 26px rgba(34,62,88,.24); font: 12px/1.45 "Segoe UI", "Microsoft YaHei", sans-serif; }
+.mask2 { position: fixed; top: 0; right: 0; bottom: 0; left: 0; display: none; z-index: 556; background: rgba(26,45,65,.32); }
+.云配置窗口box [hidden] { display: none !important; }
+.云配置窗口box button { box-sizing: border-box; height: 29px; padding: 0 11px; border: 1px solid #1D4ED8; border-radius: 5px; background: #2563EB; color: #fff; font: inherit; white-space: nowrap; cursor: pointer; }
+.云配置窗口box button:active { background: #1D4ED8; }
+.云配置窗口box button:disabled { opacity: .55; cursor: default; }
+.云配置标题行 { display: flex; align-items: center; justify-content: space-between; flex: 0 0 auto; margin-bottom: 7px; }
+.云配置标题行 h3 { flex: 0 0 auto; margin: 0; color: #0F172A; font-size: 16px; line-height: 26px; }
+.云配置标题操作 { display: flex; align-items: center; flex: 0 0 auto; }
+.云配置标题操作 > button + button { margin-left: 8px; }
+.云配置标题操作 #恢复初始配置 { height: 32px; }
+.云配置标题行 #关闭云配置窗口 { width: 76px; height: 32px; padding: 0 10px; border: 1px solid #1D4ED8; background: #2563EB; color: #fff; font-size: 13px; line-height: 30px; }
+.云配置页签 { display: flex; flex: 0 0 auto; margin-bottom: 10px; }
+.云配置页签 > button { flex: 1 1 0; min-width: 0; border-color: #CBD5E1; background: #E2E8F0; color: #0F172A; }
+.云配置页签 > button + button { margin-left: 8px; }
+.云配置页签 > button[aria-selected="true"] { border-color: #1D4ED8; background: #2563EB; color: #fff; }
+.云配置内容 { display: flex; align-items: stretch; flex: 1 1 auto; min-height: 0; overflow: hidden; }
+.云配置页 { box-sizing: border-box; width: 100%; min-width: 0; min-height: 0; overflow-y: auto; }
+.云配置页[data-cloud-pane="custom"] { display: flex; flex-direction: column; align-items: stretch; overflow: hidden; }
+.云配置页[data-cloud-pane="custom"] > .云配置表单行, .云配置列表标题 { flex: 0 0 auto; }
+.云配置表单行 { display: flex; align-items: center; min-width: 0; }
+.云配置表单行 > label { flex: 0 0 auto; margin-right: 7px; color: #0F172A; }
+.云配置临时输入 { box-sizing: border-box; min-width: 0; flex: 1 1 auto; width: 0; height: 30px; padding: 0 7px; border: 1px solid #CBD5E1; border-radius: 5px; background: #fff; color: #0F172A; font: inherit; outline: none; }
+.云配置临时输入:focus { border-color: #2563EB; box-shadow: 0 0 0 1px #2563EB; }
+.云配置临时输入::placeholder { color: #64748B; }
+.云配置表单行 > button { flex: 0 0 auto; margin-left: 8px; }
+.云配置当前标签 { flex: 1 1 auto; min-width: 0; display: flex; white-space: nowrap; }
+.云配置当前标签 strong { min-width: 0; overflow: hidden; text-overflow: ellipsis; font-weight: 600; }
+.云配置新建行 { margin-top: 8px; }
+.云配置新建行, .云配置页[data-cloud-pane="legacy"] > .云配置表单行 { align-items: flex-start; }
+.云配置新建行 > label, .云配置页[data-cloud-pane="legacy"] > .云配置表单行 > label { line-height: 30px; }
+.云配置新建行 > button, .云配置页[data-cloud-pane="legacy"] > .云配置表单行 > button { height: 30px; }
+.云配置名称编辑 { flex: 1 1 auto; min-width: 0; }
+.云配置名称编辑 .云配置临时输入 { width: 100%; }
+.云配置字数提示 { display: block; margin-top: 2px; color: #64748B; font-size: 11px; line-height: 16px; }
+.云配置字数超出 { color: #b34512; }
+.云配置窗口box .云配置临时输入[aria-invalid="true"] { border-color: #bd622d; }
+.云配置旧版操作 > button + button { margin-left: 8px; }
+.云配置列表标题 { display: flex; align-items: center; justify-content: space-between; margin: 9px 0 4px; color: #0F172A; }
+.云配置窗口box .云配置轻按钮 { height: 23px; padding: 0 9px; border-color: #CBD5E1; background: #FFFFFF; color: #0F172A; }
+.云配置名称清单 { display: flex; flex-wrap: wrap; align-content: flex-start; flex: 0 1 auto; min-height: 0; max-height: none; overflow-y: auto; border: 1px solid #E2E8F0; border-radius: 6px; background: #fff; }
+.云配置名称行 { display: flex; align-items: center; box-sizing: border-box; flex: 0 0 50%; max-width: 50%; min-width: 0; height: 34px; padding: 2px 7px; border-bottom: 1px solid #E2E8F0; }
+.云配置名称行:nth-child(odd) { border-right: 1px solid #E2E8F0; }
+.云配置列表名称 { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #0F172A; }
+.云配置名称行 button { flex: 0 0 46px; height: 28px; margin-left: 6px; padding: 0 5px; }
+.云配置空提示 { box-sizing: border-box; width: 100%; margin: 0; padding: 15px 10px; color: #0F172A; text-align: center; }
+.云配置旧版提醒 { margin: 0 0 9px; padding: 6px 8px; border-radius: 5px; background: #fff0dc; color: #9b430a; font-size: 12px; line-height: 18px; }
+.云配置旧槽列表 { display: flex; flex-wrap: wrap; margin: -3px; }
+.云配置旧槽列表 button { flex: 0 0 calc(33.333% - 6px); margin: 3px; border-color: #CBD5E1; background: #FFFFFF; color: #0F172A; }
+.云配置旧槽列表 button[aria-pressed="true"] { border-color: #1D4ED8; background: #2563EB; color: #fff; }
+.云配置旧版操作 { display: flex; align-items: center; margin: 9px 0; }
+.云配置旧版操作 span { margin-left: 10px; color: #0F172A; }
+.云配置卡密行 + .云配置卡密行 { margin-top: 10px; }
+.云配置卡密行 > label { flex-basis: 54px; }
+.云配置覆盖说明 { margin: 11px 0; color: #9b430a; line-height: 19px; }
+.云配置窗口box .云配置整套按钮 { width: 100%; }
+.云配置确认区 { flex: 0 0 auto; margin-top: 8px; padding: 7px 9px; border: 1px solid #d4b28e; border-radius: 6px; background: #fff4e6; }
+.云配置确认区 p { margin: 0 0 7px; color: #75380c; line-height: 18px; overflow-wrap: break-word; word-break: break-word; }
+.云配置确认区 > div { display: flex; justify-content: flex-end; }
+.云配置确认区 button + button { margin-left: 9px; }
+.云配置窗口box .云配置次按钮 { border-color: #CBD5E1; background: #FFFFFF; color: #0F172A; }
+.云配置状态 { flex: 1 1 0; min-width: 0; min-height: 16px; max-height: 32px; overflow-y: auto; margin: 0 10px; color: #0F172A; font-size: 12px; line-height: 16px; overflow-wrap: break-word; word-break: break-word; }
+.云配置状态-error { color: #a34610; }
+.云配置状态-success { color: #226b50; }
+@media (max-width: 550px) {
+ .首页快捷按钮组 > button + button, .首页快捷工具栏 > div + div { margin-left: 10px; }
+ 
+ .首页快捷按钮组 > #云配置入口 { min-width: 158px; padding: 0 6px; }
+ .首页快捷按钮组 > .首页售后按钮 { width: 68px; }
+ .首页快捷按钮组 > .首页上传日志按钮 { width: 84px; }
+ .首页喵码入口 { flex-basis: 66px; }
+ .首页喵提醒按钮 { width: 66px; }
+}
+@media (max-height: 350px) {
+ .云配置窗口box { padding-top: 8px; }
+ .云配置名称清单 { max-height: none; }
+ .云配置页签 { margin-bottom: 8px; }
+}
+
+/* 确认时保留本次目标，收起重复操作，避免小屏出现无谓滚动。 */
+.云配置待确认 #云配置新建, .云配置待确认 #云配置上传当前, .云配置待确认 #云配置创建上传, .云配置待确认 .云配置列表标题, .云配置待确认 .云配置名称清单, .云配置待确认 .云配置旧槽列表, .云配置待确认 .云配置旧版操作, .云配置待确认 .云配置覆盖说明, .云配置待确认 #云配置整套复制 { display: none; }
+
+
+/* 旧 WebView 的 Flex 不支持 gap，相关控件用实际外边距保留同样间距。 */
+#基础设置box .基础美化页 .switch { gap: 0; }
+#基础设置box .基础美化页 .switch > label:not(.switch-label) { margin-left: 4px; }
+#基础设置box .基础资源卡 .基础美化字段, #基础设置box .基础仓库卡 .基础美化字段 { gap: 0; }
+#基础设置box .基础资源卡 .基础美化字段 > * + *, #基础设置box .基础仓库卡 .基础美化字段 > * + * { margin-left: 4px; }
+#基础设置box .基础美化行.基础活力行 { gap: 0; }
+#基础设置box .基础活力选项 { gap: 0; margin-left: 7px; }
+#基础设置box .基础活力选项 .custom-radio + .custom-radio { margin-left: 4px; }
+#基础设置box .基础活力行 > .switch { margin-left: 11px !important; }
+#带队box .带队人数行, #带队box .带队提醒行, #带队box .带队奖励选项 { gap: 0; }
+#带队box .带队提醒行 > * + * { margin-left: 5px; }
+#带队box .带队提醒行 > #输入框_带队_队友不战斗时间 { margin-left: 5px; }
+#带队box .带队奖励选项 > * + * { margin-left: 7px; }
+@media (max-width: 550px) {
+    #带队box .带队奖励选项 > * + * { margin-left: 4px; }
+}
+
+/* 合并后的搬砖页仍有原行内 gap；三个选项行沿用原 20px 间隔。 */
+#本地号倒货box > div:first-child > div:first-child > div:first-child,
+#其他块 .搬砖物品分组 > :last-child > div,
+#其他块 .搬砖金币分组 > :last-child > div { gap: 0 !important; }
+#本地号倒货box > div:first-child > div:first-child > div:first-child > label + label,
+#其他块 .搬砖物品分组 > :last-child > div > label + label,
+#其他块 .搬砖金币分组 > :last-child > div > label + label { margin-left: 20px; }
+
+/* 与首页相同的旧内核能力边界：无 Grid 时仍保留原列数与控件分组。 */
+@supports not (display: grid) {
+    .道具飞行页 .飞行地点网格 { display: flex; flex-wrap: wrap; }
+    .道具飞行页 .飞行地点网格 .beixuan_button1 { flex: 0 0 calc(25% - 3px); width: calc(25% - 3px); }
+    .道具飞行页 .飞行地点网格 .beixuan_button1 + .beixuan_button1 { margin-left: 4px; }
+    .道具飞行页 .飞行地点网格 .beixuan_button1:nth-child(4n + 1) { margin-left: 0; }
+    .道具飞行页 .飞行地点网格 .beixuan_button1:nth-child(n + 5) { margin-top: 4px; }
+    #其他块 .搬砖物品分组, #其他块 .搬砖金币分组 { display: flex; flex-wrap: wrap; justify-content: flex-start; }
+    #其他块 .搬砖物品分组 > :first-child { flex: 0 0 33.333333%; width: 33.333333%; order: 2; }
+    #其他块 .搬砖物品分组 > :nth-child(2) { flex: 0 0 33.333333%; width: 33.333333%; order: 1; }
+    #其他块 .搬砖物品分组 > :last-child { flex: 0 0 100%; width: 100%; order: 3; }
+    #其他块 .搬砖金币分组 > :first-child { flex: 0 0 56px; width: 56px; }
+    #其他块 .搬砖金币分组 > :nth-child(2) { flex: 0 0 calc(100% - 66px); width: calc(100% - 66px); min-width: 0; margin-left: 10px; }
+    #其他块 .搬砖金币分组 > :last-child { flex: 0 0 100%; width: 100%; }
+    #基础设置box .基础常用网格 { display: flex; }
+    #基础设置box .基础常用网格 > .switch { flex: 1 1 0; min-width: 0; }
+    #基础设置box .基础常用网格 > .switch + .switch { margin-left: 14px !important; }
+    @media (max-width: 550px) {
+        #基础设置box .基础常用网格 > .switch + .switch { margin-left: 10px !important; }
+    }
+}
+
+/* 通用车夫坐标与原图教学：间距使用 margin，兼容旧 WebView。 */
+#基础设置box .基础车夫行 { flex-wrap: nowrap; gap: 0; }
+#基础设置box .基础车夫行 > * { margin: 0; flex-shrink: 0; }
+#基础设置box .基础车夫行 > span { margin-right: 12px; }
+#基础设置box .基础车夫行 > label { margin-right: 6px; }
+#基础设置box .基础美化页 .基础车夫行 > input { width: 66px !important; height: 26px; min-width: 66px; margin-right: 12px; }
+#车夫坐标说明 { width: 30px; height: 30px; padding: 0; border: 1px solid #CBD5E1; border-radius: 50%; background: #FFFFFF; color: #0F172A; font-size: 18px; font-weight: bold; line-height: 28px; }
+#车夫坐标教学 { padding-top: 36px; box-sizing: border-box; }
+#车夫坐标教学 .modal-content { width: auto; height: auto; max-width: calc(100% - 44px); max-height: calc(100% - 28px); margin: 0; animation: none; }
+#车夫坐标教学 .车夫教学关闭 { position: absolute; top: 8px; right: 24px; min-width: 76px; height: 32px; border: 1px solid #1D4ED8; border-radius: 6px; background: #2563EB; color: #fff; font-size: 14px; padding: 0 14px; }
+
+/* 必看：权限按钮与使用说明分层，沿用原单选事件。 */
+#运行环境box { width: calc(100% - 118px); height: auto; max-height: calc(100vh - 90px); box-sizing: border-box; overflow-x: hidden; overflow-y: auto; padding: 12px; border: 1px solid #CBD5E1; border-radius: 9px; background: #FFFFFF; color: #0F172A; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; }
+#运行环境box > h5 { margin: 0 0 12px !important; color: #0F172A; font-size: 15px; line-height: 20px; font-weight: 600; }
+#运行环境box .辅助权限选项 { display: flex; flex-wrap: nowrap; margin: 0; gap: 0; }
+#运行环境box .custom-radio { display: block; flex: 1 1 0; min-width: 0; margin: 0; }
+#运行环境box .custom-radio + .custom-radio { margin-left: 14px; }
+#运行环境box .radio-circle { display: none; }
+#运行环境box .custom-radio a { display: block; box-sizing: border-box; width: 100%; height: 36px; padding: 6px 8px; border: 1px solid #CBD5E1; border-radius: 6px; background: #FFFFFF; color: #0F172A; font-size: 13px; line-height: 22px; text-align: center; white-space: nowrap; }
+#运行环境box .custom-radio input:checked ~ a, #运行环境box .radio-circle.checked + a { border-color: #1D4ED8; background: #2563EB; color: #fff; box-shadow: 0 2px 3px rgba(38,77,110,.16); }
+#运行环境box .辅助权限说明区 { margin: 10px 0 0; }
+#运行环境box .辅助权限提醒 { margin: 0; color: #0F172A; font-size: 13px; line-height: 21px; white-space: normal; }
+#运行环境box .辅助权限提醒:first-child { margin: 0 0 14px; color: #0F172A; }
+#运行环境box .辅助权限提醒 + .辅助权限提醒 { margin-top: 8px; padding: 8px 10px; border: 1px solid #E2E8F0; border-left: 3px solid #aa8057; border-radius: 6px; background: #FFFFFF; }
+
+/* 自动组队使用单一开关，固定五人；间距兼容不支持 flex gap 的 WebView。 */
+#带队box .自动组队开关, #跟队box .自动组队开关 { display: flex; align-items: center; margin: 3px 0; min-height: 28px; white-space: nowrap; }
+#带队box .自动组队开关 .switch-label, #跟队box .自动组队开关 .switch-label { margin-right: 7px; }
+#带队box .自动组队开关 span, #跟队box .自动组队开关 span { color: #0F172A; font-size: 13px; }
+#带队box .自动组队说明, #跟队box .自动组队说明 { color: #0F172A; font-size: 12px; line-height: 19px; margin: 3px 0 5px; }
+#跟队box .自动组队行 { display: flex; align-items: center; flex-wrap: wrap; }
+#跟队box .自动组队行 .自动组队说明 { margin: 0 0 0 22px; }
+#跟队box .自动组队开关 { min-height: 24px; margin: 0; }
+#跟队box .跟队报警卡 { margin-top: 6px; }
+
+/* 跟队手动打法：与自动组队分卡排列，使用真实间距兼容旧 WebView。 */
+#跟队box .跟队打法切换卡 { display: flex; align-items: center; flex-wrap: wrap; margin-top: 6px; }
+#跟队box .跟队打法切换开关 { display: flex; align-items: center; min-height: 24px; margin: 0; white-space: nowrap; }
+#跟队box .跟队打法切换开关 .switch-label { margin-right: 7px; }
+#跟队box .跟队打法切换开关 span { color: #0F172A; font-size: 13px; }
+#跟队box .跟队打法切换提示 { margin: 0 0 0 18px; color: #0F172A; font-size: 12px; line-height: 19px; }
+#跟队box .跟队报警卡 { display: flex; align-items: center; flex-wrap: wrap; }
+#跟队box .跟队报警内容 { flex: 0 0 auto; }
+#跟队box .跟队领双行 { margin: 0 0 0 28px; }
+@media (max-height: 350px) {
+    #跟队box .自动组队开关, #跟队box .跟队打法切换开关 { min-height: 22px; }
+    #跟队box .跟队打法切换卡, #跟队box .跟队报警卡 { margin-top: 5px; }
+}
+
+/* 每套打法内展示怪物站位入口；使用 class 随静态模板克隆，共用原图弹窗。 */
+.战斗方法-整套开关行 .怪物站位说明 { flex: 0 0 auto; width: 76px; height: 22px; margin-left: 14px; padding: 0 8px; border: 1px solid #CBD5E1; border-radius: 5px; background: #FFFFFF; color: #0F172A; font-size: 13px; line-height: 20px; }
+@media (min-height: 380px) {
+    .战斗方法-整套开关行 .怪物站位说明 { height: 26px; line-height: 24px; }
+}
+#怪物站位教学 { position: fixed; z-index: 10000; box-sizing: border-box; padding: 48px 16px 12px; }
+#怪物站位教学 .modal-content { display: block; width: auto; height: auto; max-width: 100%; max-height: 100%; margin: 0; animation: none; }
+#怪物站位教学 .怪物站位关闭 { position: absolute; top: 8px; right: 16px; min-width: 90px; height: 34px; padding: 0 14px; border: 1px solid #1D4ED8; border-radius: 6px; background: #2563EB; color: #fff; font-size: 14px; }
+
+/* 临时编辑框沿用真实输入节点，不影响配置选择器和已有柜台/日志大框。 */
+#通用输入编辑层 { display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 30000; background: rgba(24, 48, 63, .18); }
+#通用输入编辑条 { position: fixed; box-sizing: border-box; padding: 7px 10px 10px; border: 1px solid #2563EB; border-radius: 9px; background: #FFFFFF; box-shadow: 0 3px 14px rgba(20, 51, 73, .28); overflow: auto; }
+#通用输入标题 { margin-bottom: 5px; color: #0F172A; font-size: 14px; line-height: 18px; }
+#通用输入编辑行 { display: flex; align-items: flex-start; }
+#通用输入容器 { flex: 1; min-width: 0; }
+#通用输入容器 .云配置名称编辑 { width: 100%; min-width: 0; }
+#通用输入容器 input, #通用输入容器 textarea { position: static !important; display: block !important; box-sizing: border-box !important; width: 100% !important; min-width: 0 !important; max-width: none !important; height: 36px !important; min-height: 0 !important; margin: 0 !important; padding: 5px 9px !important; border: 1px solid #2563EB !important; border-radius: 6px !important; background: #fff !important; color: #0F172A !important; font-size: 19px !important; line-height: 24px !important; text-align: left !important; float: none !important; }
+#通用输入容器 textarea { height: 66px !important; resize: none !important; }
+#通用输入完成 { flex: none; width: 64px; height: 36px; margin: 0 0 0 9px; padding: 0; border: 1px solid #1D4ED8; border-radius: 6px; background: #2563EB; color: #fff; font-size: 17px; line-height: 34px; }
+
+/* 本次重大更新说明：只允许读满30秒后的右上角按钮关闭。 */
+#重大更新说明 { position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 40000; background: rgba(18, 37, 53, .45); }
+.重大更新窗口 { position: absolute; top: 10px; bottom: 10px; left: 12px; right: 12px; max-width: 900px; margin: auto; display: flex; flex-direction: column; align-items: stretch; box-sizing: border-box; padding: 10px 14px; border: 1px solid #2563EB; border-radius: 10px; background: #FFFFFF; color: #0F172A; box-shadow: 0 5px 20px rgba(10, 35, 54, .3); }
+.重大更新标题行 { display: flex; flex: none; align-items: center; justify-content: space-between; box-sizing: border-box; height: 40px; min-height: 40px; padding-bottom: 7px; border-bottom: 1px solid #E2E8F0; }
+#重大更新标题 { margin: 0; color: #0F172A; font-size: 20px; line-height: 30px; }
+#重大更新关闭 { width: 82px; height: 32px; margin: 0; padding: 0; border: 1px solid #1D4ED8; border-radius: 6px; background: #2563EB; color: #fff; font-size: 16px; line-height: 30px; }
+#重大更新关闭[hidden] { display: none !important; }
+.重大更新正文 { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 0 5px 0 0; font-size: 14px; line-height: 1.5; }
+.重大更新正文 p { margin: 8px 0 10px; }
+.重大更新正文 strong { color: #0F172A; font-size: 15px; }
+.重大更新正文 b { color: #98520e; }
+.重大更新开头 { color: #0F172A; }
+#重大更新阅读提示 { flex: none; margin: 5px 0 0; padding-top: 7px; border-top: 1px solid #E2E8F0; color: #64748B; font-size: 13px; line-height: 18px; }
+
+.重大更新正文:focus { outline: none; }
+
+/* 车夫坐标与键盘按钮同行，窄屏保留分组间距。 */
+#基础设置box .基础键盘行 { flex-wrap: nowrap; }
+#基础设置box .基础键盘行 .基础车夫行 { display: flex; align-items: center; flex: 0 0 auto; margin-left: auto; padding-left: 12px; white-space: nowrap; }
+#基础设置box .基础键盘行 .基础车夫行 > span { margin-right: 6px; }
+#基础设置box .基础键盘行 .基础车夫行 > label { margin-right: 3px; }
+#基础设置box .基础美化页 .基础键盘行 .基础车夫行 > input { width: 42px !important; min-width: 42px; height: 24px; margin: 0 6px 0 0; }
+#基础设置box .基础键盘行 #车夫坐标说明 { width: 24px; height: 24px; line-height: 22px; font-size: 16px; }
+@media (max-width: 560px) {
+    #基础设置box .基础键盘工具 { margin-left: 6px; }
+    #基础设置box .基础键盘工具 .bt + .bt { margin-left: 6px; }
+    #基础设置box .基础键盘行 .基础车夫行 { padding-left: 8px; }
+    #基础设置box .基础美化页 .基础键盘行 .基础车夫行 > input { width: 42px !important; min-width: 42px; margin-right: 4px; }
+    #基础设置box .基础键盘行 .基础车夫行 > span { margin-right: 4px; }
+}
+
+/* 教学图只在点击时读取，下载期间保留关闭按钮。 */
+[data-teaching-id] { flex-direction: column; }
+.教学图片提示 { color: #fff; font-size: 16px; text-align: center; }
+.教学图片提示 button { margin-left: 12px; padding: 6px 18px; border: 1px solid #CBD5E1; border-radius: 6px; background: #2563EB; color: #fff; font-size: 15px; }
+
+/* 十二面旗入口放在带队左列，五张原图只在翻到该页时加载。 */
+#十二面旗点位图入口 { align-self: flex-start; margin: 10px 0 0 8px; min-width: 136px; height: 30px; padding: 0 12px; border: 1px solid #1D4ED8; border-radius: 6px; background: #2563EB; color: #fff; font-size: 13px; box-shadow: 0 2px 3px rgba(38,77,110,.18); }
+#十二面旗教学 { position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 10000; background: rgba(0,0,0,.88); color: #fff; }
+#十二面旗教学 button { height: 34px; min-width: 72px; padding: 0 10px; border: 1px solid #CBD5E1; border-radius: 6px; background: #2563EB; color: #fff; font-size: 14px; }
+#十二面旗页面区 { position: absolute; left: 4px; right: 12px; top: 4px; bottom: 44px; overflow: hidden; }
+.十二面旗页面 { position: absolute; left: 0; top: 0; width: 100%; height: 100%; justify-content: center; align-items: center; overflow: hidden; }
+.十二面旗页面 .modal-content { display: block; flex: 0 0 auto; width: auto; height: auto; max-width: 100%; max-height: 100%; margin: 0; animation: none; }
+.十二面旗翻页栏 { position: absolute; left: 4px; right: 12px; bottom: 4px; height: 34px; display: flex; justify-content: center; align-items: center; }
+#十二面旗页码 { min-width: 126px; margin: 0 6px; text-align: center; font-size: 14px; white-space: nowrap; }
+#十二面旗关闭 { margin-left: 18px; }
+#十二面旗教学.旗图竖版 #十二面旗页面区 { right: 92px; bottom: 4px; }
+.旗图竖版 .十二面旗翻页栏 { left: auto; top: 4px; width: 72px; height: auto; flex-direction: column; }
+.旗图竖版 #十二面旗页码 { min-width: 0; width: 72px; margin: 10px 0; line-height: 20px; white-space: normal; word-break: keep-all; }
+.旗图竖版 #十二面旗关闭 { position: absolute; right: 0; top: 0; margin: 0; }
+#十二面旗放大 { display: none; }
+.旗图竖版 #十二面旗放大 { display: block; position: absolute; right: 0; bottom: 0; }
+.旗图放大 #十二面旗第2页 { justify-content: flex-start; flex-direction: column; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.旗图放大 #十二面旗第2页 .modal-content { width: 100%; max-height: none; }
+#十二面旗教学 button:disabled { opacity: .4; }
+
+
+/* 本机分辨率工具：独立临时输入，短横屏只滚动面板内容，不缩小控件。 */
+#运行环境box .设备显示入口行 { margin-top: 12px; }
+#设备显示设置入口 { min-height: 32px; padding: 0 12px; border: 1px solid #1D4ED8; border-radius: 6px; background: #2563EB; color: #fff; font-size: 13px; }
+html.mhxy-screen-settings-only, html.mhxy-screen-settings-only body { background: transparent; }
+html.mhxy-screen-settings-only .设备显示遮罩 { padding: 0; background: transparent; }
+.设备显示遮罩 { display: none; position: fixed; left: 0; right: 0; top: 0; bottom: 0; z-index: 12000; align-items: center; justify-content: center; padding: 8px; background: rgba(0,0,0,.55); color: #0F172A; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; }
+.设备显示面板 { display: flex; flex-direction: column; align-items: stretch; width: 460px; max-width: 100%; max-height: 100%; padding: 12px; border: 1px solid #CBD5E1; border-radius: 9px; background: #FFFFFF; box-shadow: 0 3px 16px rgba(0,0,0,.24); }
+.设备显示标题行 { display: flex; flex: 0 0 auto; align-items: center; justify-content: space-between; padding-bottom: 10px; border-bottom: 1px solid #E2E8F0; }
+#设备显示标题 { font-size: 18px; line-height: 28px; font-weight: 600; }
+.设备显示面板 button { min-height: 32px; padding: 0 12px; border: 1px solid #1D4ED8; border-radius: 6px; background: #2563EB; color: #fff; font-family: inherit; font-size: 14px; line-height: 24px; white-space: nowrap; }
+.设备显示面板 button:disabled { opacity: .5; }
+#设备显示关闭 { margin-left: 12px; }
+.设备显示内容 { width: 100%; min-height: 0; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.设备显示当前行 { margin: 10px 0 12px; color: #64748B; font-size: 13px; line-height: 22px; word-wrap: break-word; }
+.设备显示目标行 { display: flex; align-items: flex-start; width: 100%; }
+.设备显示字段 { display: block; flex: 1 1 0; min-width: 0; }
+.设备显示字段 + .设备显示字段 { margin-left: 12px; }
+.设备显示字段 > span { display: block; margin-bottom: 4px; font-size: 13px; line-height: 20px; }
+.设备显示临时输入 { display: block; width: 100%; min-width: 0; height: 34px; padding: 0 7px; border: 1px solid #CBD5E1; border-radius: 5px; background: #fff; color: #0F172A; font-family: inherit; font-size: 16px; outline: none; }
+.设备显示临时输入:focus { border-color: #2563EB; box-shadow: 0 0 0 1px #2563EB; }
+#设备显示说明 { margin: 9px 0 12px; color: #64748B; font-size: 12px; line-height: 19px; }
+.设备显示操作行 { display: flex; align-items: center; }
+.设备显示操作行 > button { flex: 1 1 0; min-width: 0; }
+.设备显示操作行 > button + button { margin-left: 12px; }
+.设备显示状态 { min-height: 36px; margin-top: 9px; color: #0F172A; font-size: 13px; line-height: 18px; word-wrap: break-word; }
+.设备显示状态.设备显示错误 { color: #9b481c; }
+
+/* 飞贼：五类打法各占一行，保留公共按钮高度；基础设置并排减少滚动。 */
+#飞贼box .飞贼设置行 { display: flex; flex-wrap: wrap; align-items: center; padding-right: 8px; }
+#飞贼box .飞贼设置项 { display: flex; flex: 0 0 auto; align-items: center; min-height: 26px; margin: 0 12px 0 0; white-space: nowrap; }
+#飞贼box .飞贼设置项:last-child { margin-right: 0; }
+#飞贼box .飞贼打法行 { display: flex; align-items: center; width: 100%; margin-top: 2px; padding-right: 8px; }
+#飞贼box .飞贼打法行 > p { flex: 0 0 108px; margin: 0 6px 0 0; white-space: nowrap; }
+#飞贼box .飞贼打法行 .战斗方案选择组 { max-width: none; gap: 0 !important; }
+#飞贼box .飞贼打法行 .custom-radio + .custom-radio { margin-left: 3px; }
+
+/* 人员公告：图片随包显示，正文可滚动，确认按钮在短横屏上始终可见。 */
+#人员公告说明 { position: fixed; left: 0; right: 0; top: 0; bottom: 0; z-index: 50000; align-items: center; justify-content: center; padding: 12px 24px 12px 12px; box-sizing: border-box; background: rgba(18, 30, 43, .65); }
+.人员公告窗口 { display: flex; flex-direction: column; align-items: stretch; width: 660px; max-width: 100%; max-height: 100%; box-sizing: border-box; padding: 12px 16px; border: 1px solid #E2E8F0; border-radius: 10px; background: #fff; color: #0F172A; box-shadow: 0 5px 22px rgba(0,0,0,.3); }
+#人员公告标题 { flex: none; margin: 0 0 10px; padding-bottom: 8px; border-bottom: 1px solid #E2E8F0; color: #a13d32; font-size: 20px; line-height: 28px; }
+.人员公告正文 { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+.人员公告正文 img { display: block; width: 100%; max-width: 471px; height: auto; margin: 0 auto; }
+.人员公告正文 p { margin: 12px 0 4px; font-size: 18px; line-height: 1.7; white-space: normal; word-wrap: break-word; }
+.人员公告操作 { flex: none; padding-top: 12px; text-align: right; }
+#人员公告确认, #QN合作公告换卡 { width: 126px; height: 38px; margin: 0; padding: 0; border: 1px solid #1D4ED8; border-radius: 6px; background: #2563EB; color: #fff; font-size: 16px; line-height: 36px; }
+@media (min-width: 580px) and (max-height: 440px) { .人员公告正文 { display: flex; align-items: center; } .人员公告正文 img { flex: 0 0 auto; width: 45%; margin: 0 16px 0 0; } .人员公告正文 p { flex: 1 1 auto; margin: 0; } }
+
+@media (max-width: 579px) and (max-height: 440px) { .人员公告正文 img { width: 200px; max-width: 100%; } .人员公告正文 p { margin: 6px 0 0; font-size: 16px; line-height: 1.55; } }
+
+/* 定向合作通知复用原公告窗口，仅图片和正文按本通知排版。 */
+#QN合作公告正文 { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+.QN合作公告账号 { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; }
+.QN合作公告账号 img { display: block; flex: 0 1 auto; width: auto; max-width: calc(100% - 8px); height: auto; margin: 4px; }
+#QN合作公告正文 p { margin: 10px 0 4px; font-size: 17px; line-height: 1.6; white-space: normal; word-wrap: break-word; }
+.人员公告操作.QN合作公告操作 { display: flex; align-items: center; justify-content: space-between; text-align: left; }
+#QN合作公告联系 { flex: 1 1 auto; margin-right: 12px; padding: 6px 8px; border-radius: 6px; background: #fff3e7; color: #8b3826; font-size: 15px; line-height: 1.6; }
+#QN合作公告联系 strong { font-size: 18px; }
+.QN合作公告按钮 { display: inline-flex; flex: 0 0 126px; flex-direction: column; }
+#QN合作公告换卡 { margin-bottom: 6px; }
+@media (max-height: 440px) { #QN合作公告正文 p { margin-top: 8px; font-size: 16px; line-height: 1.5; } }
+
+/* 师门二加上省眼开关后收紧留白，保留控件尺寸。 */
+#师门box .单人师门第2页 .单人设置卡 { padding: 2px 7px; }
+#师门box .单人师门第2页 .单人设置卡 + .单人设置卡 { margin-top: 2px; }
+#师门box .单人师门第2页 .单人行 + .单人战斗行, #师门box .单人师门第2页 .单人战斗行 + .单人战斗行 { margin-top: 2px !important; }
+#师门box .单人师门第2页 .单人收服说明 { margin-top: 2px; }
+@media (max-height: 350px) {
+    #师门box .单人师门第2页 .单人设置卡 { padding-top: 0; padding-bottom: 0; }
+    #师门box .单人师门第2页 .单人设置卡 + .单人设置卡 { margin-top: 1px; }
+    #师门box .单人师门第2页 .单人行 + .单人行 { margin-top: 0; }
+    #师门box .单人师门第2页 .单人行 + .单人战斗行, #师门box .单人师门第2页 .单人战斗行 + .单人战斗行 { margin-top: 1px !important; }
+    #师门box .单人师门第2页 .单人收服说明 { margin-top: 1px; }
+}

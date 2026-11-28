@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script>
+		// AI-VERIFY[MHXY-H5-VIEWPORT-001][2026-09-09][review-after=2026-09-19]
+		// 内容解析前按可用宽高拟合；只初始化一次，键盘弹出时沿用现有避让逻辑。
+		(function () {
+			var 可用宽度 = document.documentElement.clientWidth || window.innerWidth;
+			var 可用高度 = window.innerHeight;
+			if (可用宽度 > 0 && 可用高度 > 0) {
+				var 设计宽度 = Math.max(640, Math.round(可用宽度 / 可用高度 * 360));
+				document.querySelector('meta[name="viewport"]').content = "width=" + 设计宽度;
+			}
+		})();
+	</script>
+    <title>统计表格</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            padding: 6px 8px;
+            padding-right: calc(8px + env(safe-area-inset-right, 0px));
+            padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+            overflow: hidden;
+            background: #f3f5f4;
+            color: #293b32;
+            font-family: "Microsoft YaHei", sans-serif;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        .table-container {
+            position: fixed;
+            top: 6px;
+            left: 8px;
+            right: 8px;
+            right: calc(8px + env(safe-area-inset-right, 0px));
+            bottom: 40px;
+            bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+            overflow-y: auto;
+            overflow-x: hidden;
+            background: #fff;
+            border: 1px solid #dce5df;
+            border-bottom: 0;
+            border-radius: 6px 6px 0 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            font-variant-numeric: tabular-nums;
+        }
+
+        th:nth-child(1) { width: 11%; }
+        th:nth-child(2) { width: 17%; }
+        th:nth-child(3) { width: 12%; }
+        th:nth-child(4) { width: 12%; }
+        th:nth-child(5) { width: 12%; }
+        th:nth-child(6) { width: 7%; }
+        th:nth-child(7) { width: 9%; }
+        th:nth-child(8) { width: 20%; }
+
+        th, td {
+            padding: 4px 3px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 12px;
+            line-height: 17px;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        th {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            height: 32px;
+            padding-top: 6px;
+            padding-bottom: 6px;
+            background: #477c61;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        th:last-child, td:last-child {
+            padding-right: 36px;
+        }
+
+        td {
+            border-bottom: 1px solid #e6ece8;
+        }
+
+        td:first-child, td:nth-child(7) {
+            color: #617168;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #f7f9f8;
+        }
+
+        .today-stats {
+            position: fixed;
+            bottom: 6px;
+            bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+            left: 8px;
+            right: 8px;
+            right: calc(8px + env(safe-area-inset-right, 0px));
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            min-height: 34px;
+            padding: 6px 8px;
+            border: 1px solid #dce5df;
+            border-radius: 0 0 6px 6px;
+            background: #eaf2ed;
+            color: #526c5c;
+            font-size: 12px;
+            line-height: 20px;
+        }
+
+        .today-stats > span {
+            flex: 1;
+            min-width: 0;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .today-stats > span:first-child {
+            flex: 0 0 auto;
+            margin-right: 8px;
+            color: #31543f;
+            font-weight: 600;
+        }
+
+        .today-stats > span > span {
+            color: #244d36;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .close-button {
+            position: fixed;
+            top: 10px;
+            right: 13px;
+            right: calc(13px + env(safe-area-inset-right, 0px));
+            z-index: 4;
+            width: 26px;
+            height: 26px;
+            margin: 0;
+            padding: 0;
+            transform: none;
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            border-radius: 5px;
+            background: #598971;
+            color: #fff;
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .close-button::before, .close-button::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 13px;
+            height: 2px;
+            border-radius: 1px;
+            background: currentColor;
+            transform: translate(-50%, -50%) rotate(45deg);
+            pointer-events: none;
+        }
+
+        .close-button::after {
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+
+        .close-button:active {
+            background: rgba(255, 255, 255, 0.24);
+        }
+
+        .close-button:focus-visible {
+            outline: 2px solid #fff;
+            outline-offset: 1px;
+        }
+
+        @media (max-width: 520px) {
+            body { padding-left: 6px; padding-right: 8px; }
+            .table-container, .today-stats { left: 6px; }
+            th, td { font-size: 11px; }
+            th { font-size: 12px; }
+            .today-stats { padding-left: 4px; padding-right: 4px; font-size: 11px; }
+            .today-stats > span:first-child { margin-right: 4px; }
+        }
+        @media (max-width: 440px) {
+            td:first-child, td:nth-child(3), td:nth-child(4), td:nth-child(5) {
+                padding-left: 1px;
+                padding-right: 1px;
+                font-size: 10px;
+            }
+            .table-container {
+                bottom: 50px;
+                bottom: calc(50px + env(safe-area-inset-bottom, 0px));
+            }
+            .today-stats { line-height: 15px; }
+            .today-stats > span > span { display: block; }
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>角色名</th>
+                    <th>当前</th>
+                    <th>结余</th>
+                    <th>转出</th>
+                    <th>宝图</th>
+                    <th>耗时</th>
+                    <th>异常<button id="btn_close" class="close-button" type="button" aria-label="关闭角色统计"></button></th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- 数据将通过 JavaScript 动态插入 -->
+            </tbody>
+        </table>
+    </div>
+    <div class="today-stats">
+        <span>今日统计：</span>
+        <span>当前: <span id="sumCurrent">0</span></span>
+        <span>结余: <span id="sumRemain">0</span></span>
+        <span>转出: <span id="sumTransfer">0</span></span>
+        <span>宝图: <span id="sumMap">0</span></span>
+        <span>耗时: <span id="sumTime">0</span></span>
+
+    </div>
+    <script>
+        // 格式化时间
+        function formatTime(minutes) {
+            let days = Math.floor(minutes / 1440);
+            let hours = Math.floor((minutes % 1440) / 60);
+            let mins = minutes % 60;
+
+            let result = [];
+            if (days > 0) result.push(`${days}d`);
+            if (hours > 0 || days > 0) result.push(`${hours}h`);
+            result.push(`${mins}m`);
+            if (result.join('') == '0m') {
+                return '0';
+            }
+            return result.join('');
+        }
+        function applyMoneyColor(cell) {
+            const num = parseInt(cell.textContent.replace(/[^0-9]/g, ''));
+            const length = num.toString().length;
+            cell.style.fontWeight = 'bold';  // 添加粗体
+            if (length <= 4) {
+                cell.style.color = '#000000';  // 黑色
+            } else if (length === 5) {
+                cell.style.color = '#0202ff';  // 蓝色
+            } else if (length === 6) {
+                cell.style.color = '#029502';  // 绿色
+            } else if (length === 7) {
+                cell.style.color = '#e23235';  // 红色
+            } else if (length >= 8) {
+                cell.style.color = '#881df7';  // 紫色
+            }
+        }
+
+        // 加载数据
+        function loadData() {
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = '';
+            var pkn = "";
+            var workpath = window.bridge.getWorkPath();
+            var arr = workpath.split("/");
+            arr.forEach((element) => {
+                if (element.indexOf("com.") != -1) {
+                    pkn = element;
+                }
+            });
+            var path = "/sdcard/" + pkn + "/stats.txt";
+            var content = window.bridge.readStringFromFile(path);
+            if (content == null) {
+                content = "";
+            }
+            //传送到lua
+            // window.bridge.sendToLua(content);
+            //判断有多少行,然后按每行用,,分割出内容添加进去
+            var lines = content.split('\n').filter(line => line.trim() !== '');// 过滤掉空行
+
+            // 初始化统计变量
+            let sumCurrent = 0, sumRemain = 0, sumTransfer = 0, sumMap = 0, sumTime = 0;
+            // AI-VERIFY[MHXY-H5-LEGACY-STATS-001][2026-09-10][review-after=2026-09-20]
+            // 旧 WebView 没有 padStart；保留两位日期和原今日汇总规则。
+            const today = ('0' + new Date().getDate()).slice(-2); // 获取当天日期数字
+            const rows = document.createDocumentFragment();
+            // window.bridge.sendToLua("当天日: " + today);
+            for (var i = 0; i < lines.length; i++) {
+                var line = lines[i];
+                var cells = line.split(',,');
+
+                // 提取日期中的日部分（假设日期格式为24-18:21）
+                const dayPart = cells[0].split('-')[0];
+                // window.bridge.sendToLua("读取日: " + dayPart);
+                if (dayPart === today) {
+                    sumCurrent += parseInt(cells[2]) || 0;
+                    sumRemain += parseInt(cells[3]) || 0;
+                    sumTransfer += parseInt(cells[4]) || 0;
+                    sumMap += parseInt(cells[5]) || 0;
+                    sumTime += parseInt(cells[6].replace('m', '')) || 0;// 移除 'm' 
+                }
+
+                var row = document.createElement('tr');
+                // 如果是当天的数据，添加背景色
+                if (dayPart === today) {
+                    row.style.backgroundColor = '#edf5ee';
+                }
+                for (var j = 0; j < cells.length; j++) {
+                    var cell = document.createElement('td');
+                    cell.textContent = cells[j];
+                    // 为结束、结余、转出列添加颜色
+                    if (j >= 2 && j <= 4) {  // 第3、4、5列
+                        applyMoneyColor(cell);
+                    }
+
+                    row.appendChild(cell);
+
+
+
+                }
+                rows.appendChild(row);
+            }
+
+            tableBody.appendChild(rows);
+            document.getElementById('sumCurrent').textContent = sumCurrent;
+            document.getElementById('sumRemain').textContent = sumRemain;
+            applyMoneyColor(document.getElementById('sumCurrent'));
+            applyMoneyColor(document.getElementById('sumRemain'));
+            document.getElementById('sumTransfer').textContent = sumTransfer;
+            document.getElementById('sumMap').textContent = sumMap;
+            document.getElementById('sumTime').textContent = formatTime(sumTime);
+        }
+
+        btn_close.onclick = function () {
+            window.bridge.sendToLua("close");
+        }
+
+        loadData();
+
+
+    </script>
+</body>
+
+</html>

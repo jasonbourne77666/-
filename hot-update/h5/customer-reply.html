@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日志反馈回复</title>
+    <style>
+        html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 28px;
+            background: rgba(17, 24, 39, 0.62);
+            color: #20364d;
+            font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .reply-dialog {
+            display: flex;
+            flex-direction: column;
+            width: 70%;
+            height: 70%;
+            min-width: 0;
+            min-height: 0;
+            overflow: hidden;
+            border: 1px solid rgba(32, 54, 77, 0.16);
+            border-radius: 15px;
+            background: #ffffff;
+            box-shadow: 0 16px 44px rgba(0, 0, 0, 0.34);
+        }
+
+        .reply-scroll {
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+            padding: 18px 22px 16px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .reason {
+            flex: 0 0 auto;
+            margin: 0;
+            width: 100%;
+            padding: 11px 15px;
+            border-left: 4px solid #dda740;
+            border-radius: 9px;
+            background: #fff7e8;
+            color: #705a3d;
+            font-family: "KaiTi", "STKaiti", "Noto Serif CJK SC", serif;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.55;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        .reply-text {
+            flex: 1 0 auto;
+            min-height: 120px;
+            width: 100%;
+            padding: 14px 17px;
+            border-left: 4px solid #3f8fd7;
+            border-radius: 9px;
+            background: #eef6ff;
+            color: #173b62;
+            font-family: "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.62;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        .reply-footer {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 22px 12px;
+            border-top: 1px solid #e7edf4;
+            background: #f8fafc;
+        }
+
+        .confirm-button {
+            display: block;
+            width: 160px;
+            min-height: 44px;
+            margin: 0;
+            border: 0;
+            border-radius: 10px;
+            outline: none;
+            background: #2f83d4;
+            color: #ffffff;
+            font-family: "Microsoft YaHei", sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-indent: 4px;
+            box-shadow: 0 4px 10px rgba(47, 131, 212, 0.22);
+        }
+
+        .confirm-button:active {
+            background: #256eaf;
+        }
+
+        .confirm-button:disabled {
+            opacity: 0.62;
+        }
+
+        .error-message {
+            display: none;
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+            padding: 28px;
+            color: #8a2f39;
+            font-size: 18px;
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        .reply-dialog.is-error .reply-scroll {
+            display: none;
+        }
+
+        .reply-dialog.is-error .error-message {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <article class="reply-dialog" id="replyDialog">
+        <main class="reply-scroll">
+            <blockquote class="reason" id="reasonText"></blockquote>
+            <div class="reply-text" id="replyText"></div>
+        </main>
+
+        <div class="error-message" id="errorMessage">回复内容暂时无法显示，请关闭后重新启动脚本再试。</div>
+
+        <footer class="reply-footer">
+            <button class="confirm-button" id="confirmButton" type="button">确定</button>
+        </footer>
+    </article>
+
+    <script>
+        (function () {
+            "use strict";
+
+            var dialog = document.getElementById("replyDialog");
+            var reasonNode = document.getElementById("reasonText");
+            var replyNode = document.getElementById("replyText");
+            var confirmButton = document.getElementById("confirmButton");
+            var contentId = "";
+            var ready = false;
+            var sent = false;
+
+            function bridgeSend(message) {
+                if (window.bridge && typeof window.bridge.sendToLua === "function") {
+                    window.bridge.sendToLua(message);
+                }
+            }
+
+            function resolveDataPath() {
+                var workPath = window.bridge.getWorkPath() + "/support-reply-view.json";
+                var parts = workPath.split("/");
+                if (parts.length <= 4 || !parts[4]) {
+                    throw new Error("invalid work path");
+                }
+                return "/sdcard/" + parts[4] + "/support-reply-view.json";
+            }
+
+            function loadReply() {
+                if (!window.bridge || typeof window.bridge.getWorkPath !== "function" ||
+                    typeof window.bridge.readStringFromFile !== "function") {
+                    throw new Error("bridge unavailable");
+                }
+                var raw = window.bridge.readStringFromFile(resolveDataPath());
+                var value = JSON.parse(raw || "");
+                if (!value || value.schema !== "mhxy-support-reply-view/v1" ||
+                    typeof value.content_id !== "string" ||
+                    !/^M1-[0-9A-F]{32}$/.test(value.content_id) ||
+                    typeof value.reason !== "string" || !value.reason ||
+                    typeof value.text !== "string" || !value.text ||
+                    value.reason.length > 600 || value.text.length > 600) {
+                    throw new Error("invalid reply payload");
+                }
+
+                contentId = value.content_id;
+                reasonNode.textContent = "“" + value.reason + "”";
+                replyNode.textContent = value.text;
+                ready = true;
+                bridgeSend("客户回复页面已就绪," + contentId);
+            }
+
+            confirmButton.onclick = function () {
+                if (sent) {
+                    return;
+                }
+                sent = true;
+                confirmButton.disabled = true;
+                if (ready) {
+                    bridgeSend("客户回复确认," + contentId);
+                } else {
+                    bridgeSend("客户回复关闭");
+                }
+            };
+
+            try {
+                loadReply();
+            } catch (error) {
+                ready = false;
+                dialog.className += " is-error";
+                confirmButton.textContent = "关闭";
+            }
+        }());
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{
+  "coach-coordinates": {
+    "file": "coach-coordinates.png",
+    "md5": "a9833000cc2d977fbc1b329a3bee77ca",
+    "size": 354151,
+    "object": "teaching/a9833000cc2d977fbc1b329a3bee77ca.png"
+  },
+  "flag-aolai": {
+    "file": "flag-aolai.png",
+    "md5": "51d9ae88cc9af958ce9fb2c223cc4f6d",
+    "size": 1323906,
+    "object": "teaching/51d9ae88cc9af958ce9fb2c223cc4f6d.png"
+  },
+  "flag-changan": {
+    "file": "flag-changan.jpg",
+    "md5": "74f2895b2b87e930a75e178f200e2447",
+    "size": 945358,
+    "object": "teaching/74f2895b2b87e930a75e178f200e2447.jpg"
+  },
+  "flag-changshou": {
+    "file": "flag-changshou.jpg",
+    "md5": "5af96cf311453fb589dec3bd72297a13",
+    "size": 424620,
+    "object": "teaching/5af96cf311453fb589dec3bd72297a13.jpg"
+  },
+  "flag-guide": {
+    "file": "flag-guide.jpg",
+    "md5": "85b7a8b2b406c19ea695ccad2d6df321",
+    "size": 223011,
+    "object": "teaching/85b7a8b2b406c19ea695ccad2d6df321.jpg"
+  },
+  "flag-zhuzi": {
+    "file": "flag-zhuzi.jpg",
+    "md5": "e9ef1b0fd2362db4e049f45bf1bc084e",
+    "size": 755955,
+    "object": "teaching/e9ef1b0fd2362db4e049f45bf1bc084e.jpg"
+  },
+  "monster-positions": {
+    "file": "monster-positions.jpg",
+    "md5": "ff651ae492b7d2ef6a36275da990fdcb",
+    "size": 486709,
+    "object": "teaching/ff651ae492b7d2ef6a36275da990fdcb.jpg"
+  }
+}

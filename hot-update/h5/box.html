@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script>
+		// AI-VERIFY[MHXY-H5-VIEWPORT-001][2026-09-09][review-after=2026-09-19]
+		// 内容解析前按可用宽高拟合；只初始化一次，键盘弹出时沿用现有避让逻辑。
+		(function () {
+			var 可用宽度 = document.documentElement.clientWidth || window.innerWidth;
+			var 可用高度 = window.innerHeight;
+			if (可用宽度 > 0 && 可用高度 > 0 && (可用宽度 < 300 || 可用高度 < 178)) {
+				var 设计宽度 = Math.max(300, Math.round(可用宽度 / 可用高度 * 178));
+				document.querySelector('meta[name="viewport"]').content = "width=" + 设计宽度;
+			}
+		})();
+	</script>
+        <title>弹窗提示</title>
+        <style>
+            html,
+            body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                background-color: transparent;
+            }
+        </style>
+    </head>
+    <style>
+        
+        .弹窗提示{
+            background: #ffffff;
+            position: absolute;
+            /* display: flex; */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            /* height: 150px;  */
+            border-radius: 5px;
+            /* justify-content: center; */
+            /* align-items: center;  */
+            /* box-shadow: 0 5px 20px rgba(0,0,0,0.1); */
+            /* flex-direction: column;  */
+            z-index: 2; 
+        } 
+        .弹窗提示 .内容区
+        {
+            /* background-color: #0080FF; */
+            display: flex;
+            position: relative;
+            width: 100%;
+            /* justify-content: center; */
+            align-items: center;
+            height: 138px;
+            overflow: hidden;
+        }
+        p 
+        {
+            /* background-color: aqua; */
+            
+            margin: 10px;
+            font-size: 14px;
+            
+        }
+
+
+        .弹窗提示按钮{
+            display: flex; 
+            /* margin: 30px auto; */
+            width: 100%; 
+            height: 40px; 
+            background: linear-gradient(150deg,#F2F2F6,#0080FF); 
+            outline: none; 
+            border: none; 
+            border-radius: 5px; 
+            font-size: 18px; 
+            color: #fff;
+            justify-content: center;
+            align-items: center;
+            
+        }
+        
+        .弹窗提示按钮:active{
+            transform: scale(0.9);
+            transition: 0.1s;
+        }
+        
+        
+    </style>
+    
+    <body>
+        <!-- style="margin: 20px; font-size: 15px;height: 68px;" -->
+        <div class="弹窗提示" id="弹窗提示" >
+            <div class="内容区">
+                <p id="text"></p>
+            </div>
+            
+            <!-- 确定钮 -->
+            <div id="确定钮" style="display: none;">
+                <button id="弹窗提示确定" class="弹窗提示按钮" >确　定</button>
+                
+            </div>
+            <!-- 取消钮+确定钮 -->
+            <div id="取消钮_确定钮" style="display: none; justify-content: space-between; padding: 0 10px;">
+                <button id="弹窗提示取消" class="弹窗提示按钮" style="width: 48%; float: left;background: linear-gradient(150deg,#f80237,#ff0040); ">取　消</button>
+                <button id="弹窗提示确定1" class="弹窗提示按钮" style="width: 48%;" >确　定</button> 
+            </div>
+            <!-- 忽略钮+暂停钮 -->
+            <div id="忽略钮_暂停钮" style="display: none; justify-content: space-between; padding: 0 10px;">
+                <button id="弹窗提示忽略" class="弹窗提示按钮" style="width: 40%; float: left;background: linear-gradient(150deg,#fcc101,#ffd000);">忽　略</button>
+                <button id="弹窗提示暂停" class="弹窗提示按钮" style="width: 40%;" >暂　停</button> 
+            </div>
+
+            <!-- 忽略的倒计时 -->
+            <div id="忽略倒计时" style="display: none; position: absolute; top: 146px; left: 138px; color: #333;">
+                <p id="time" style="font-size: 20px; font-weight: 800; margin: 0; width: 25px; text-align: center;">15</p>
+            </div>
+        </div> 
+    </body>
+
+    <script>
+        
+        弹窗提示确定.onclick = function (){ 
+            window.bridge.sendToLua("点击确定");
+        }
+        弹窗提示确定1.onclick = function (){ 
+            window.bridge.sendToLua("点击确定");
+        }
+        弹窗提示取消.onclick = function (){ 
+            window.bridge.sendToLua("点击取消");
+        }
+        弹窗提示忽略.onclick = function (){ 
+            window.bridge.sendToLua("点击忽略");
+        }
+        // AI-VERIFY[MHXY-H5-OUTSIDE-CLOSE-001][2026-10-03][review-after=2026-10-13]
+        // 只有带取消按钮的提示可点外部取消；确认、忽略和暂停仍由原按钮决定。
+        document.addEventListener("click", function (事件) {
+            if (!弹窗提示.contains(事件.target) && 取消钮_确定钮.style.display === "flex") {
+                弹窗提示取消.click();
+            }
+        });
+        //倒计时
+        function 倒计时事件(){
+            time.innerHTML = time.innerHTML - 1;
+            if(time.innerHTML == 0){
+                clearInterval(倒计时id);
+                if (忽略钮_暂停钮.style.display != "none"){
+                    window.bridge.sendToLua("忽略倒计时结束");
+                }
+            }
+        }
+        
+        
+        var 倒计时id = setInterval(倒计时事件,1000)
+        
+        
+
+        弹窗提示暂停.onclick = function (){ 
+            clearInterval(倒计时id);
+        }
+
+
+
+        // 页面底部已经解析完全部弹窗控件，立即填入内容，避免先显示空白弹窗。
+        function 加载弹窗内容() {
+            //读取数据
+            let workpath = window.bridge.getWorkPath() + "/" + "smgbox.ini";
+            let arr = workpath.split("/");
+            let path = "/sdcard/"+ arr[4] + "/" + "smgbox.ini";
+            let lret = window.bridge.readStringFromFile(path);
+            let ret_arr = lret.split("#")
+            
+            if(ret_arr[0] != null){
+                text.innerText  = ret_arr[0];
+            }
+            if(ret_arr[1] == 1){
+                确定钮.style.display = "flex";
+                取消钮_确定钮.style.display = "none";
+                忽略钮_暂停钮.style.display = "none";
+                忽略倒计时.style.display = "none";
+                clearInterval(倒计时id);
+            }else{
+                if(ret_arr[1] == 2){
+                    取消钮_确定钮.style.display = "flex";
+                    确定钮.style.display = "none";
+                    忽略钮_暂停钮.style.display = "none";
+                    忽略倒计时.style.display = "none";
+                    clearInterval(倒计时id);
+                }else{
+                    if(ret_arr[1] == 3){
+                        取消钮_确定钮.style.display = "none";
+                        确定钮.style.display = "none";
+                        忽略钮_暂停钮.style.display = "flex";
+                        忽略倒计时.style.display = "flex";
+                    }
+                }
+            }
+        }
+
+        加载弹窗内容();
+
+        // 离开页面时执行的操作
+        window.onunload = function() {  
+            clearInterval(倒计时id);
+        }
+
+
+        
+    </script>
+
+
+
+</html>
